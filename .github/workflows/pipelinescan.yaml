@@ -48,7 +48,7 @@ jobs:
             file: "verademo.war" 
             request_policy: "VeraDemo Policy"
             store_baseline_file: true
-            store_baseline_file_branch: "feature-123"
+            store_baseline_file_branch: "HEAD:feature-123"
             create_baseline_from: "standard"
             debug: 1
             fail_build: true
