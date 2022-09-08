@@ -38,21 +38,17 @@ jobs:
           uses: actions/download-artifact@v2
           with:
             name: verademo.war
-          
-        - name: show folder
-          run: |
-            env
 
         - name: pipeline-scan action step
           id: pipelien-scan
-          uses: julz0815/Veracode-pipeline-scan-action@beta-0.13
+          uses: julz0815/Veracode-pipeline-scan-action@beta-0.24
           with:
             vid: ${{ secrets.VID }}
             vkey: ${{ secrets.VKEY }}
             file: "verademo.war" 
             request_policy: "VeraDemo Policy"
             store_baseline_file: true
-            store_baseline_file_branch: "feature-123"
+            store_baseline_file_branch: "HEAD:feature-123"
             create_baseline_from: "standard"
             debug: 1
             fail_build: true
