@@ -41,7 +41,7 @@ jobs:
 
         - name: pipeline-scan action step
           id: pipelien-scan
-          uses: julz0815/Veracode-pipeline-scan-action@beta-0.24
+          uses: julz0815/Veracode-pipeline-scan-action@beta-0.25
           with:
             vid: ${{ secrets.VID }}
             vkey: ${{ secrets.VKEY }}
