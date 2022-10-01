@@ -41,7 +41,7 @@ jobs:
           path: /tmp
 
       - name: import flaws as issues
-        uses: veracode/veracode-flaws-to-issues@latest
+        uses: veracode/veracode-flaws-to-issues@v1.0.0
         with:
           scan-results-json: '/tmp/policy_flaws.json'
           github-token: ${{ secrets.GITHUB_TOKEN }}
