@@ -50,6 +50,22 @@ jobs:
             debug: 1
             fail_build: true
 
+# This step will import flaws from the step above
+  import-policy-flaws:
+    needs: pipeline_scan
+    runs-on: ubuntu-latest
+    steps:
+      - name: get flaw file
+        uses: actions/download-artifact@v2
+        with:
+          name: Veracode Pipeline-Scan Results
+          path: /tmp
+
+      - name: import flaws as issues
+        uses: julz0815/veracode-flaws-to-issues@beta-0.0.70
+        with:
+          scan-results-json: '/tmp/filtered_results.json'
+
 
 #  get-policy-flaws:
 #    runs-on: ubuntu-latest
