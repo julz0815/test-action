@@ -4,13 +4,13 @@
       "href": "/"
     },
     "self": {
-      "href": "/scans/3106b31e-f1c5-46b9-ba1b-69325f8e1832/findings"
+      "href": "/scans/f0536960-d84d-4a90-8efd-c1a928552942/findings"
     },
     "help": {
       "href": "https://help.veracode.com/reader/tS9CaFwL4_lbIEWWomsJoA/ovfZGgu96UINQxIuTqRDwg"
     }
   },
-  "scan_id": "3106b31e-f1c5-46b9-ba1b-69325f8e1832",
+  "scan_id": "f0536960-d84d-4a90-8efd-c1a928552942",
   "scan_status": "SUCCESS",
   "message": "Scan successful. Results size: 346349 bytes",
   "modules": [
