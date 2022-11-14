@@ -62,9 +62,10 @@ jobs:
           path: /tmp
 
       - name: import flaws as issues
-        uses: veracode/veracode-flaws-to-issues@v2.0.0
+        uses: veracode/veracode-flaws-to-issues@v2.0.2
         with:
           scan-results-json: '/tmp/filtered_results.json'
+          fail_buid: true
 
 
 #  get-policy-flaws:
