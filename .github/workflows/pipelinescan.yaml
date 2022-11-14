@@ -18,7 +18,7 @@ jobs:
     - name: Build with Maven
       run: mvn clean package
 
-    - uses: actions/upload-artifact@v1
+    - uses: actions/upload-artifact@v3
       with:
         name: verademo.war
         path: target/verademo.war
@@ -32,7 +32,7 @@ jobs:
           uses: actions/checkout@v2
 
         - name: get archive
-          uses: actions/download-artifact@v2
+          uses: actions/download-artifact@v3
           with:
             name: verademo.war
         - name: pipeline-scan action step
@@ -56,16 +56,17 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: get flaw file
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v3
         with:
           name: Veracode Pipeline-Scan Results
           path: /tmp
 
       - name: import flaws as issues
-        uses: veracode/veracode-flaws-to-issues@v2.0.2
+        uses: veracode/veracode-flaws-to-issues@v2.0.5
         with:
           scan-results-json: '/tmp/filtered_results.json'
-          fail_buid: true
+          fail_build: true
+
 
 
 #  get-policy-flaws:
