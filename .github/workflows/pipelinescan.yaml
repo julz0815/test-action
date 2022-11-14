@@ -65,6 +65,7 @@ jobs:
         uses: veracode/veracode-flaws-to-issues@v2.0.0
         with:
           scan-results-json: '/tmp/filtered_results.json'
+          fail_build: true
 
 
 
