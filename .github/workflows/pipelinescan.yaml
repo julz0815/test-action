@@ -37,7 +37,7 @@ jobs:
             name: verademo.war
         - name: pipeline-scan action step
           id: pipelien-scan
-          uses: veracode/Veracode-pipeline-scan-action@pipeline-scan-beta-v0.0.3
+          uses: veracode/Veracode-pipeline-scan-action@pipeline-scan-beta-v0.0.4
           #julz0815/Veracode-pipeline-scan-action@beta-0.29
           with:
             vid: ${{ secrets.VID }}
@@ -62,7 +62,7 @@ jobs:
           path: /tmp
 
       - name: import flaws as issues
-        uses: veracode/veracode-flaws-to-issues@v2.0.10
+        uses: veracode/veracode-flaws-to-issues@v2.0.11
         with:
           scan-results-json: '/tmp/filtered_results.json'
           fail_build: true
