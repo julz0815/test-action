@@ -62,7 +62,7 @@ jobs:
           path: /tmp
 
       - name: import flaws as issues
-        uses: veracode/veracode-flaws-to-issues@v.2.0.4
+        uses: veracode/veracode-flaws-to-issues@v2.0.5
         with:
           scan-results-json: '/tmp/filtered_results.json'
           fail_build: true
