@@ -50,23 +50,50 @@ jobs:
             create_baseline_from: "standard"
             debug: 1
             fail_build: false
-
-# This step will import flaws from the step above
-  import-policy-flaws:
+            
+  results_to_sarif:
     needs: pipeline_scan
     runs-on: ubuntu-latest
+    name: import pipeline results to sarif
     steps:
       - name: get flaw file
         uses: actions/download-artifact@v3
         with:
           name: Veracode Pipeline-Scan Results
           path: /tmp
-
-      - name: import flaws as issues
-        uses: veracode/veracode-flaws-to-issues@v2.0.11
+          
+      - name: Convert pipeline scan output to SARIF format
+        id: convert
+        uses: Veracode/veracode-pipeline-scan-results-to-sarif@v1.0.3
         with:
-          scan-results-json: '/tmp/filtered_results.json'
-          fail_build: true
+          pipeline-results-json: /tmp/filtered_results.json
+          output-results-sarif: veracode-results.sarif
+          source-base-path-1: "^com/veracode:src/main/java/com/veracode"
+          source-base-path-2: "^WEB-INF:src/main/webapp/WEB-INF"
+          finding-rule-level: "3:1:0"
+
+      - name: upload sarif file to repository
+        uses: github/codeql-action/upload-sarif@v1
+        with: # Path to SARIF file relative to the root of the repository
+          sarif_file: veracode-results.sarif
+
+
+# This step will import flaws from the step above
+#  import-policy-flaws:
+#    needs: pipeline_scan
+#    runs-on: ubuntu-latest
+#    steps:
+#      - name: get flaw file
+#        uses: actions/download-artifact@v3
+#        with:
+#          name: Veracode Pipeline-Scan Results
+#          path: /tmp
+#
+#      - name: import flaws as issues
+#        uses: veracode/veracode-flaws-to-issues@v2.0.11
+#        with:
+#          scan-results-json: '/tmp/filtered_results.json'
+#          fail_build: true
 
 
 
