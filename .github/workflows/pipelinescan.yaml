@@ -64,7 +64,7 @@ jobs:
           
       - name: Convert pipeline scan output to SARIF format
         id: convert
-        uses: Veracode/veracode-pipeline-scan-results-to-sarif@v1.0.4
+        uses: Veracode/veracode-pipeline-scan-results-to-sarif@v1.0.5
         with:
           pipeline-results-json: /tmp/filtered_results.json
           output-results-sarif: veracode-results.sarif
@@ -73,7 +73,7 @@ jobs:
           finding-rule-level: "3:1:0"
 
       - name: upload sarif file to repository
-        uses: github/codeql-action/upload-sarif@v2
+        uses: github/codeql-action/upload-sarif@v1
         with: # Path to SARIF file relative to the root of the repository
           sarif_file: veracode-results.sarif
 
