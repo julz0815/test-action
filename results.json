@@ -4,13 +4,13 @@
       "href": "/"
     },
     "self": {
-      "href": "/scans/37285cd9-03f8-454b-96fe-ffdbb804fd6a/findings"
+      "href": "/scans/730cbb62-9e98-4c9e-91a5-7f683ef2aad5/findings"
     },
     "help": {
       "href": "https://help.veracode.com/reader/tS9CaFwL4_lbIEWWomsJoA/ovfZGgu96UINQxIuTqRDwg"
     }
   },
-  "scan_id": "37285cd9-03f8-454b-96fe-ffdbb804fd6a",
+  "scan_id": "730cbb62-9e98-4c9e-91a5-7f683ef2aad5",
   "scan_status": "SUCCESS",
   "message": "Scan successful. Results size: 346353 bytes",
   "modules": [
@@ -5267,6 +5267,6 @@
       "flaw_details_link": "https://downloads.veracode.com/securityscan/cwe/v4/java/80.html"
     }
   ],
-  "pipeline_scan": "22.9.0-0",
+  "pipeline_scan": "22.11.0-0",
   "dev_stage": "DEVELOPMENT"
 }
