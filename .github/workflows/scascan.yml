@@ -18,5 +18,5 @@ jobs:
         uses: veracode/veracode-sca@v2.0.18
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          create-issues: false 
+          create-issues: true 
           fail-on-cvss: 1   
