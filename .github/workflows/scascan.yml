@@ -1,6 +1,6 @@
 on:
-  push:
-    branches: [feature-123]
+  pull_request:
+    branches: [main]
 
 
 
@@ -15,8 +15,7 @@ jobs:
       - name: Run Veracode SCA
         env:
           SRCCLR_API_TOKEN: ${{ secrets.SRCCLR_API_TOKEN }}
-        uses: veracode/veracode-sca@v2.0.3
+        uses: veracode/veracode-sca@v2.0.23
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          create-issues: false 
-          fail-on-cvss: 1   
+#          github_token: ${{ secrets.GITHUB_TOKEN }}
+          create-issues: false
