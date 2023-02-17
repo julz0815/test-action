@@ -33,8 +33,9 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: verademo.war
+          
       - name: Veracode Upload and Scan Action Step
-      - uses: veracode/veracode-uploadandscan-action@master
+        uses: veracode/veracode-uploadandscan-action@master
         id: upload_and_scan
         with:
           appname: '${{ github.repository }}'
