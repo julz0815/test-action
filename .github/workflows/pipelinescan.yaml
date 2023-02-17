@@ -26,58 +26,80 @@ jobs:
         name: verademo.war
         path: target/verademo.war
         
-  pipeline_scan:
-      needs: build
-      runs-on: ubuntu-latest
-      name: pipeline scan
-      steps:
-        - name: checkout repo
-          uses: actions/checkout@v3
-
-        - name: get archive
-          uses: actions/download-artifact@v3
-          with:
-            name: verademo.war
-        - name: pipeline-scan action step
-          id: pipelien-scan
-          uses: veracode/Veracode-pipeline-scan-action@pipeline-scan-beta-v0.0.4
-          #julz0815/Veracode-pipeline-scan-action@beta-0.29
-          with:
-            vid: ${{ secrets.VID }}
-            vkey: ${{ secrets.VKEY }}
-            file: "verademo.war" 
-            request_policy: "VeraDemo Policy"
-            store_baseline_file: true
-            store_baseline_file_branch: "feature-123"
-            create_baseline_from: "standard"
-            debug: 1
-            fail_build: false
-            
-  results_to_sarif:
-    needs: pipeline_scan
+  policy-scan:
     runs-on: ubuntu-latest
-    name: import pipeline results to sarif
     steps:
-      - name: get flaw file
+      - name: get archive
         uses: actions/download-artifact@v3
         with:
-          name: Veracode Pipeline-Scan Results
-          path: /tmp
-          
-      - name: Convert pipeline scan output to SARIF format
-        id: convert
-        uses: Veracode/veracode-pipeline-scan-results-to-sarif@v1.0.5
+          name: verademo.war
+      - name: Veracode Upload and Scan Action Step
+      - uses: veracode/veracode-uploadandscan-action@master
+        id: upload_and_scan
         with:
-          pipeline-results-json: /tmp/filtered_results.json
-          output-results-sarif: veracode-results.sarif
-          source-base-path-1: "^com/veracode:src/main/java/com/veracode"
-          source-base-path-2: "^WEB-INF:src/main/webapp/WEB-INF"
-          finding-rule-level: "3:1:0"
-
-      - name: upload sarif file to repository
-        uses: github/codeql-action/upload-sarif@v2
-        with: # Path to SARIF file relative to the root of the repository
-          sarif_file: veracode-results.sarif
+          appname: '${{ github.repository }}'
+          version: '${{ github.run_id }}'
+          filepath: 'verademo.war'
+          vid: '${{ secrets.VERACODE_API_ID }}'
+          vkey: '${{ secrets.VERACODE_API_KEY }}'
+          createsandbox: true
+          sandboxname: 'Github - ${{ github.ref }}'
+          scantimeout: 15
+          criticality: 'VeryHigh'
+          createprofile: true
+        
+#  pipeline_scan:
+#      needs: build
+#      runs-on: ubuntu-latest
+#      name: pipeline scan
+#      steps:
+#        - name: checkout repo
+#          uses: actions/checkout@v3
+#
+#        - name: get archive
+#          uses: actions/download-artifact@v3
+#          with:
+#            name: verademo.war
+#        - name: pipeline-scan action step
+#          id: pipelien-scan
+#          uses: veracode/Veracode-pipeline-scan-action@pipeline-scan-beta-v0.0.4
+#          #julz0815/Veracode-pipeline-scan-action@beta-0.29
+#          with:
+#            vid: ${{ secrets.VID }}
+#            vkey: ${{ secrets.VKEY }}
+#            file: "verademo.war" 
+#            request_policy: "VeraDemo Policy"
+#            store_baseline_file: true
+#            store_baseline_file_branch: "feature-123"
+#            create_baseline_from: "standard"
+#            debug: 1
+#            fail_build: false
+#            
+#  results_to_sarif:
+#    needs: pipeline_scan
+#    runs-on: ubuntu-latest
+#    name: import pipeline results to sarif
+#    steps:
+#      - name: get flaw file
+#        uses: actions/download-artifact@v3
+#        with:
+#          name: Veracode Pipeline-Scan Results
+#          path: /tmp
+#          
+#      - name: Convert pipeline scan output to SARIF format
+#        id: convert
+#        uses: Veracode/veracode-pipeline-scan-results-to-sarif@v1.0.5
+#        with:
+#          pipeline-results-json: /tmp/filtered_results.json
+#          output-results-sarif: veracode-results.sarif
+#          source-base-path-1: "^com/veracode:src/main/java/com/veracode"
+#          source-base-path-2: "^WEB-INF:src/main/webapp/WEB-INF"
+#          finding-rule-level: "3:1:0"
+#
+#      - name: upload sarif file to repository
+#        uses: github/codeql-action/upload-sarif@v2
+#        with: # Path to SARIF file relative to the root of the repository
+#          sarif_file: veracode-results.sarif
 
 
 # This step will import flaws from the step above
