@@ -41,8 +41,8 @@ jobs:
           appname: '${{ github.repository }}'
           version: '${{ github.run_id }}'
           filepath: 'verademo.war'
-          vid: '${{ secrets.VERACODE_API_ID }}'
-          vkey: '${{ secrets.VERACODE_API_KEY }}'
+          vid: '${{ secrets.VID }}'
+          vkey: '${{ secrets.VKEY }}'
           createsandbox: true
           sandboxname: 'Github - ${{ github.ref }}'
           scantimeout: 15
