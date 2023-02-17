@@ -53,6 +53,7 @@ jobs:
           scantimeout: 15
           criticality: 'VeryHigh'
           createprofile: true
+          scanpollinginterval: 30
         
 #  pipeline_scan:
 #      needs: build
