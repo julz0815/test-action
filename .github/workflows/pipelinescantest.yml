@@ -1,0 +1,28 @@
+on:
+  push:
+    branches: [feature-123]  
+  
+jobs:
+  pipeline_scan:
+      needs: build
+      runs-on: ubuntu-latest
+      name: pipeline scan
+      steps:
+        - name: checkout repo
+          uses: actions/checkout@v3
+
+        - name: get archive
+          uses: actions/download-artifact@v3
+          with:
+            name: verademo.war
+        - name: pipeline-scan action step
+          id: pipelien-scan
+          uses: veracode/Veracode-pipeline-scan-action@v1.0.0
+          #julz0815/Veracode-pipeline-scan-action@beta-0.29
+          with:
+            vid: ${{ secrets.VID }}
+            vkey: ${{ secrets.VKEY }}
+            file: "helloworld-2.0.jar" 
+            request_policy: "VeraDemo Policy"
+            debug: 1
+            fail_build: false
