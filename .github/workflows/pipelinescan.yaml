@@ -27,146 +27,49 @@ jobs:
         name: verademo.war
         path: target/verademo.war
         
-  policy-scan:
-    runs-on: ubuntu-latest
-    needs: build
-    steps:
-      - name: checkout repo
-        uses: actions/checkout@v3
-        
-      - name: get archive
-        uses: actions/download-artifact@v3
-        with:
-          name: verademo.war
-          
-      - name: Veracode Upload and Scan Action Step
-        uses: veracode/veracode-uploadandscan-action@0.2.5
-        id: upload_and_scan
-        with:
-          appname: '${{ github.repository }}'
-          version: '${{ github.run_id }}'
-          filepath: 'verademo.war'
-          vid: '${{ secrets.VID }}'
-          vkey: '${{ secrets.VKEY }}'
-          createsandbox: true
-          sandboxname: 'Github - ${{ github.ref }}'
-          scantimeout: 15
-          criticality: 'VeryHigh'
-          createprofile: true
-          scanpollinginterval: 30
-        
-#  pipeline_scan:
-#      needs: build
-#      runs-on: ubuntu-latest
-#      name: pipeline scan
-#      steps:
-#        - name: checkout repo
-#          uses: actions/checkout@v3
-#
-#        - name: get archive
-#          uses: actions/download-artifact@v3
-#          with:
-#            name: verademo.war
-#        - name: pipeline-scan action step
-#          id: pipelien-scan
-#          uses: veracode/Veracode-pipeline-scan-action@pipeline-scan-beta-v0.0.4
-#          #julz0815/Veracode-pipeline-scan-action@beta-0.29
-#          with:
-#            vid: ${{ secrets.VID }}
-#            vkey: ${{ secrets.VKEY }}
-#            file: "verademo.war" 
-#            request_policy: "VeraDemo Policy"
-#            store_baseline_file: true
-#            store_baseline_file_branch: "feature-123"
-#            create_baseline_from: "standard"
-#            debug: 1
-#            fail_build: false
-#            
-#  results_to_sarif:
-#    needs: pipeline_scan
-#    runs-on: ubuntu-latest
-#    name: import pipeline results to sarif
-#    steps:
-#      - name: get flaw file
-#        uses: actions/download-artifact@v3
-#        with:
-#          name: Veracode Pipeline-Scan Results
-#          path: /tmp
-#          
-#      - name: Convert pipeline scan output to SARIF format
-#        id: convert
-#        uses: Veracode/veracode-pipeline-scan-results-to-sarif@v1.0.5
-#        with:
-#          pipeline-results-json: /tmp/filtered_results.json
-#          output-results-sarif: veracode-results.sarif
-#          source-base-path-1: "^com/veracode:src/main/java/com/veracode"
-#          source-base-path-2: "^WEB-INF:src/main/webapp/WEB-INF"
-#          finding-rule-level: "3:1:0"
-#
-#      - name: upload sarif file to repository
-#        uses: github/codeql-action/upload-sarif@v2
-#        with: # Path to SARIF file relative to the root of the repository
-#          sarif_file: veracode-results.sarif
+  pipeline_scan:
+      needs: build
+      runs-on: ubuntu-latest
+      name: pipeline scan
+      steps:
+        - name: checkout repo
+          uses: actions/checkout@v3
 
-
-# This step will import flaws from the step above
-#  import-policy-flaws:
-#    needs: pipeline_scan
-#    runs-on: ubuntu-latest
-#    steps:
-#      - name: get flaw file
-#        uses: actions/download-artifact@v3
-#        with:
-#          name: Veracode Pipeline-Scan Results
-#          path: /tmp
-#
-#      - name: import flaws as issues
-#        uses: veracode/veracode-flaws-to-issues@v2.0.11
-#        with:
-#          scan-results-json: '/tmp/filtered_results.json'
-#          fail_build: true
-
-
-
-#  get-policy-flaws:
-#    runs-on: ubuntu-latest
-#    container: 
-#      image: veracode/api-signing:latest
-#    steps:
-      # Note: this will only work up to about 500 flaws
-      #		due to Veracode results limiting
-      # See the get_flaws.sh script in the helpers directory
-      #		for a more elaborate method
-#      - name: get policy flaws
-#        run: |
-#          cd /tmp
-#          export VERACODE_API_KEY_ID=${{ secrets.VID }}
-#          export VERACODE_API_KEY_SECRET=${{ secrets.VKEY }}
-#          guid=$(http --auth-type veracode_hmac GET "https://api.veracode.com/appsec/v1/applications?name=Verademo%20API" | jq -r '._embedded.applications[0].guid') 
-#          echo GUID: ${guid}
-#          total_flaws=$(http --auth-type veracode_hmac GET "https://api.veracode.com/appsec/v2/applications/${guid}/findings?scan_type=STATIC&violates_policy=True" | jq -r '.page.total_elements')
-#          echo TOTAL_FLAWS: ${total_flaws}
-#          http --auth-type veracode_hmac GET "https://api.veracode.com/appsec/v2/applications/${guid}/findings?scan_type=STATIC&violates_policy=True&size=${total_flaws}" > policy_flaws.json
-
-#      - name: save results file
-#        uses: actions/upload-artifact@v2
-#        with:
-#          name: policy-flaws
-#          path: /tmp/policy_flaws.json
-
-# This step will import flaws from the step above
-#  import-policy-flaws:
-#    needs: get-policy-flaws
-#    runs-on: ubuntu-latest
-#    steps:
-#      - name: get flaw file
-#        uses: actions/download-artifact@v2
-#        with:
-#          name: policy-flaws
-#          path: /tmp
-
-#      - name: import flaws as issues
-#        uses: julz0815/veracode-flaws-to-issues@beta-0.0.70
-#        with:
-#          scan-results-json: '/tmp/policy_flaws.json'
+        - name: get archive
+          uses: actions/download-artifact@v3
+          with:
+            name: verademo.war
+        - name: pipeline-scan action step
+          id: pipelien-scan
+          uses: veracode/Veracode-pipeline-scan-action@pipeline-scan-beta-v0.0.4
+          #julz0815/Veracode-pipeline-scan-action@beta-0.29
+          with:
+            vid: ${{ secrets.VID }}
+            vkey: ${{ secrets.VKEY }}
+            file: "verademo.war" 
+            request_policy: "VeraDemo Policy"
+            store_baseline_file: true
+            store_baseline_file_branch: "feature-123"
+            create_baseline_from: "standard"
+            debug: 1
+            fail_build: false
             
+# This step will import flaws from the step above
+  import-pipeline-flaws:
+    needs: pipeline_scan
+    runs-on: ubuntu-latest
+    steps:
+      - name: get flaw file
+        uses: actions/download-artifact@v2
+        with:
+          name: Veracode Pipeline-Scan Results
+          path: /tmp
+
+      - name: import flaws as issues
+        uses: julz0815/veracode-flaws-to-issues@beta-0.0.70
+        with:
+          scan-results-json: '/tmp/filtered_results.json'
+            
+  results_to_sarif:
+    needs: pipeline_scan
+
