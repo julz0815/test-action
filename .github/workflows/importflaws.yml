@@ -35,7 +35,7 @@ jobs:
           path: /tmp
 
       - name: import flaws as issues
-        uses: veracode/veracode-flaws-to-issues@v2.1.2
+        uses: veracode/veracode-flaws-to-issues@v2.1.3
         with:
           scan-results-json: '/tmp/policy_flaws.json'
           debug: true
