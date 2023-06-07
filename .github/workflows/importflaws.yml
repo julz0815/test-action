@@ -10,9 +10,9 @@ jobs:
       - name: get policy flaws
         run: |
           cd /tmp
-          export VERACODE_API_KEY_ID=${{ secrets.VERACODE_API_ID }}
-          export VERACODE_API_KEY_SECRET=${{ secrets.VERACODE_API_KEY }}
-          guid=$(http --auth-type veracode_hmac GET "https://api.veracode.com/appsec/v1/applications?name=Verademo" | jq -r '._embedded.applications[0].guid') 
+          export VERACODE_API_KEY_ID=${{ secrets.VID }}
+          export VERACODE_API_KEY_SECRET=${{ secrets.VKEY }}
+          guid=$(http --auth-type veracode_hmac GET "https://api.veracode.com/appsec/v1/applications?name=Vera-Demo" | jq -r '._embedded.applications[0].guid') 
           echo GUID: ${guid}
           total_flaws=$(http --auth-type veracode_hmac GET "https://api.veracode.com/appsec/v2/applications/${guid}/findings?scan_type=STATIC&violates_policy=True" | jq -r '.page.total_elements')
           echo TOTAL_FLAWS: ${total_flaws}
@@ -35,6 +35,7 @@ jobs:
           path: /tmp
 
       - name: import flaws as issues
-        uses: veracode/veracode-flaws-to-issues@v2.1.0
+        uses: veracode/veracode-flaws-to-issues@v2.1.6
         with:
           scan-results-json: '/tmp/policy_flaws.json'
+          debug: true
