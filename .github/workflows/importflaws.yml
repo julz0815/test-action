@@ -4,8 +4,8 @@ on:
     branches:
       - main
       - feature-123
-#  push:
-#    branches: [feature-123]
+  push:
+    branches: [feature-123]
   
 jobs:
   get-policy-flaws:
