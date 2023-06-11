@@ -3,6 +3,8 @@ on:
   pull_request:
     branches:
       - main
+      - feature-123
+
 jobs:
   get-policy-flaws:
     runs-on: ubuntu-latest
@@ -37,7 +39,7 @@ jobs:
           path: /tmp
 
       - name: import flaws as issues
-        uses: veracode/veracode-flaws-to-issues@v2.1.6
+        uses: veracode/veracode-flaws-to-issues@v2.1.18
         with:
           scan-results-json: '/tmp/policy_flaws.json'
           debug: true
