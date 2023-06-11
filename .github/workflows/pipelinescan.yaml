@@ -1,6 +1,6 @@
 on:
-#  pull_request:
-#    branches: [main]
+  pull_request:
+    branches: [main]
   workflow_dispatch:
 
 
@@ -41,16 +41,15 @@ jobs:
             name: verademo.war
         - name: pipeline-scan action step
           id: pipelien-scan
-          uses: veracode/Veracode-pipeline-scan-action@pipeline-scan-beta-v0.0.4
-          #julz0815/Veracode-pipeline-scan-action@beta-0.29
+          uses: veracode/Veracode-pipeline-scan-action@v1.0.3
           with:
             vid: ${{ secrets.VID }}
             vkey: ${{ secrets.VKEY }}
             file: "verademo.war" 
             request_policy: "VeraDemo Policy"
-            store_baseline_file: true
-            store_baseline_file_branch: "feature-123"
-            create_baseline_from: "standard"
+            #store_baseline_file: true
+            #store_baseline_file_branch: "feature-123"
+            #create_baseline_from: "standard"
             debug: 1
             fail_build: false
             
@@ -66,10 +65,7 @@ jobs:
           path: /tmp
 
       - name: import flaws as issues
-        uses: julz0815/veracode-flaws-to-issues@beta-0.0.70
+        uses: veracode/veracode-flaws-to-issues@v2.1.18
         with:
           scan-results-json: '/tmp/filtered_results.json'
-            
-  results_to_sarif:
-    needs: pipeline_scan
 
