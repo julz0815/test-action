@@ -41,7 +41,7 @@ jobs:
             name: verademo.war
         - name: pipeline-scan action step
           id: pipelien-scan
-          uses: veracode/Veracode-pipeline-scan-action@v1.0.3
+          uses: veracode/Veracode-pipeline-scan-action@v1.0.4
           with:
             vid: ${{ secrets.VID }}
             vkey: ${{ secrets.VKEY }}
@@ -51,6 +51,7 @@ jobs:
             #store_baseline_file_branch: "feature-123"
             #create_baseline_from: "standard"
             debug: 1
+            include: 'JS files*'
             fail_build: false
             
 # This step will import flaws from the step above
