@@ -1,6 +1,8 @@
 on:
   push:
     branches: [feature-123]
+  pull_request:
+    branches: [main]
 
 
 
