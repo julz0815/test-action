@@ -23,5 +23,5 @@ jobs:
             source: "./"
             format: "json"
             output: "results.json"
-            debug: 1
+            debug: true
             fail_build: true
