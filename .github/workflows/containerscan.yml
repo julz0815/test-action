@@ -20,9 +20,9 @@ jobs:
           with:
             vid: ${{ secrets.VID }}
             vkey: ${{ secrets.VKEY }}
-            command: "sbom" 
+            command: "scan" 
             type: "directory"
             source: "./"
-            format: "cyclonedx-xml"
+            format: "json"
             debug: true
             fail_build: true
