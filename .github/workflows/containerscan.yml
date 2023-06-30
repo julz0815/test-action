@@ -16,7 +16,7 @@ jobs:
 
         - name: container-scan action step
           id: container-scan
-          uses: 5l1D3R/veracode-container-scanning-action@main
+          uses: veracode/container_iac_secrets_scanning@v1.0.0
           with:
             vid: ${{ secrets.VID }}
             vkey: ${{ secrets.VKEY }}
