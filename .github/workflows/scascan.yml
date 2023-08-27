@@ -17,3 +17,5 @@ jobs:
         uses: veracode/veracode-sca@v3.0.0
         with:
           workspace_automation: true
+          VID: '${{ secrets.VID }}'
+          VKEY: '${{ secrets.VKEY }}'
