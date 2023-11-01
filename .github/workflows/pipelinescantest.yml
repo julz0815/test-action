@@ -45,6 +45,6 @@ jobs:
             vid: ${{ secrets.VID }}
             vkey: ${{ secrets.VKEY }}
             file: "verademo.war" 
-            veracode_policy_name: "NotExistent"
+            veracode_policy_name: "Verademo Policy"
             debug: 1
             fail_build: false
