@@ -42,7 +42,7 @@ jobs:
           uses: veracode/uploadandscan-action@deleteIncompleteScan
           #julz0815/Veracode-pipeline-scan-action@beta-0.29
           with:
-            appname: github-uploadandscan
+            appname: githubuploadandscan
             createprofile: true
             policy: 'Verademo Policy'
             version: '${{ github.run_id }}'
