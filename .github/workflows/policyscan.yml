@@ -47,8 +47,8 @@ jobs:
             policy: 'Verademo Policy'
             version: '${{ github.run_id }}'
             filepath: ./target/verademo.war
-            vid: '${{ secrets.API_ID }}'
-            vkey: '${{ secrets.API_KEY }}'
+            vid: '${{ secrets.VID }}'
+            vkey: '${{ secrets.VKEY }}'
             scantimeout: 15
             failbuild: true
 
