@@ -1,1 +1,54 @@
+on:
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+  
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - uses: actions/setup-java@v3
+      with:
+        distribution: 'zulu'
+        java-version: 8
+    - name: Cache Maven packages
+      uses: actions/cache@v3
+      with:
+        path: ~/.m2
+        key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+    - name: Build with Maven
+      run: mvn clean package
+
+    - uses: actions/upload-artifact@v3
+      with:
+        name: verademo.war
+        path: target/verademo.war
+
+
+  ppolicy_scan:
+      needs: build
+      runs-on: ubuntu-latest
+      name: pipeline scan
+      steps:
+        - name: checkout repo
+          uses: actions/checkout@v3
+        - name: get archive
+          uses: actions/download-artifact@v3
+          with:
+            name: verademo.war
+        - name: policye-scan action step
+          id: policy-scan
+          uses: veracode/uploadandscan-action@deleteIncompleteScan
+          #julz0815/Veracode-pipeline-scan-action@beta-0.29
+          with:
+            appname: github-uploadandscan
+            createprofile: true
+            policy: 'Verademo Policy'
+            version: '${{ github.run_id }}'
+            filepath: ./target/verademo.war
+            vid: '${{ secrets.API_ID }}'
+            vkey: '${{ secrets.API_KEY }}'
+            scantimeout: 15
+            failbuild: true
 
