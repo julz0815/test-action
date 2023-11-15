@@ -50,5 +50,6 @@ jobs:
             vid: '${{ secrets.VID }}'
             vkey: '${{ secrets.VKEY }}'
             scantimeout: 15
+            deleteincompletescan: true
             failbuild: true
 
