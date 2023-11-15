@@ -46,7 +46,7 @@ jobs:
             createprofile: true
             policy: 'Verademo Policy'
             version: '${{ github.run_id }}'
-            filepath: ./target/verademo.war
+            filepath: verademo.war
             vid: '${{ secrets.VID }}'
             vkey: '${{ secrets.VKEY }}'
             scantimeout: 15
