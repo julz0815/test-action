@@ -35,6 +35,21 @@ jobs:
         - name: checkout repo
           uses: actions/checkout@v3
 
+        - name: create archive
+          run: |
+            cp targert/verademo.war target/verademo1.war
+            cp targert/verademo.war target/verademo2.war
+            cp targert/verademo.war target/verademo3.war
+            cp targert/verademo.war target/verademo4.war
+            cp targert/verademo.war target/verademo5.war
+            cp targert/verademo.war target/verademo6.war
+            cp targert/verademo.war target/verademo7.war
+            cp targert/verademo.war target/verademo8.war
+            cp targert/verademo.war target/verademo9.war
+            cp targert/verademo.war target/verademo19.war
+
+            zip -r veracode.zip *.war
+
         - name: get archive
           uses: actions/download-artifact@v3
           with:
@@ -45,7 +60,7 @@ jobs:
           with:
             vid: ${{ secrets.VID }}
             vkey: ${{ secrets.VKEY }}
-            file: "verademo.war" 
+            file: "veracode.zip" 
             request_policy: "VeraDemo Policy"
             #store_baseline_file: true
             #store_baseline_file_branch: "feature-123"
