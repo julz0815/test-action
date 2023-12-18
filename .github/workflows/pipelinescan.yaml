@@ -6,54 +6,53 @@ on:
 
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v3
-    - uses: actions/setup-java@v3
-      with:
-        distribution: 'zulu'
-        java-version: 8
-    - name: Cache Maven packages
-      uses: actions/cache@v3
-      with:
-        path: ~/.m2
-        key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
-    - name: Build with Maven
-      run: mvn clean package
+#  build:
+#    runs-on: ubuntu-latest
+#    steps:
+#    - uses: actions/checkout@v3
+#    - uses: actions/setup-java@v3
+#      with:
+#        distribution: 'zulu'
+#        java-version: 8
+#    - name: Cache Maven packages
+#      uses: actions/cache@v3
+#      with:
+#        path: ~/.m2
+#        key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+#    - name: Build with Maven
+#      run: mvn clean package#
 
-    - uses: actions/upload-artifact@v3
-      with:
-        name: verademo.war
-        path: target/verademo.war
+#    - uses: actions/upload-artifact@v3
+#      with:
+#        name: verademo.war
+#        path: target/verademo.war
         
   pipeline_scan:
-      needs: build
+ #     needs: build
       runs-on: ubuntu-latest
       name: pipeline scan
       steps:
         - name: checkout repo
           uses: actions/checkout@v3
 
-        - name: create archive
-          run: |
-            cp targert/verademo.war target/verademo1.war
-            cp targert/verademo.war target/verademo2.war
-            cp targert/verademo.war target/verademo3.war
-            cp targert/verademo.war target/verademo4.war
-            cp targert/verademo.war target/verademo5.war
-            cp targert/verademo.war target/verademo6.war
-            cp targert/verademo.war target/verademo7.war
-            cp targert/verademo.war target/verademo8.war
-            cp targert/verademo.war target/verademo9.war
-            cp targert/verademo.war target/verademo19.war
-
-            zip -r veracode.zip *.war
-
         - name: get archive
           uses: actions/download-artifact@v3
           with:
             name: verademo.war
+        - name: create archive
+          run: |
+            cp verademo.war verademo1.war
+            cp verademo.war verademo2.war
+            cp verademo.war verademo3.war
+            cp verademo.war verademo4.war
+            cp verademo.war verademo5.war
+            cp verademo.war verademo6.war
+            cp erademo.war verademo7.war
+            cp verademo.war verademo8.war
+            cp verademo.war verademo9.war
+            cp verademo.war verademo19.war
+
+            zip -r veracode.zip *.war
         - name: pipeline-scan action step
           id: pipelien-scan
           uses: veracode/Veracode-pipeline-scan-action@v1.0.7
