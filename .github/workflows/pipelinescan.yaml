@@ -28,7 +28,7 @@ jobs:
         path: target/verademo.war
         
   pipeline_scan:
- #     needs: build
+      needs: build
       runs-on: ubuntu-latest
       name: pipeline scan
       steps:
