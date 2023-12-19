@@ -16,13 +16,13 @@ jobs:
 
         - name: container-scan action step
           id: container-scan
-          uses: 5l1D3R/veracode-container-scanning-action@main
+          uses: veracode/veracode/veracode-container-scanning-action@changeInstallFolder
           with:
             vid: ${{ secrets.VID }}
             vkey: ${{ secrets.VKEY }}
             command: "scan" 
             type: "directory"
             source: "./"
-            format: "json"
+            format: "table"
             debug: true
             fail_build: true
