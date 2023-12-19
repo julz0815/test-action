@@ -24,5 +24,5 @@ jobs:
             type: "directory"
             source: "./"
             format: "json"
-            debug: false
+            debug: true
             fail_build: true
