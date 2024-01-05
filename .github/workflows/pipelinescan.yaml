@@ -52,6 +52,23 @@ jobs:
             #create_baseline_from: "standard"
             debug: 1
             fail_build: false
+
+  results_to_sarif:
+    needs: pipeline_scan
+    runs-on: ubuntu-latest
+    name: import pipeline results to sarif
+    steps:
+      - name: Convert pipeline scan output to SARIF format
+        id: convert
+        uses: Veracode/veracode-pipeline-scan-results-to-sarif@v1.0.6
+        with:
+          pipeline-results-json: results.json
+          output-results-sarif: veracode-results.sarif
+
+      - name: upload sarif file to repository
+        uses: github/codeql-action/upload-sarif@v2
+        with: # Path to SARIF file relative to the root of the repository
+          sarif_file: veracode-results.sarif
             
 # This step will import flaws from the step above
   import-pipeline-flaws:
