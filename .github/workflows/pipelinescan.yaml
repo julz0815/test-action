@@ -41,7 +41,7 @@ jobs:
             name: verademo.war
         - name: pipeline-scan action step
           id: pipelien-scan
-          uses: veracode/Veracode-pipeline-scan-action@support-saf-scanners
+          uses: veracode/Veracode-pipeline-scan-action@v1.0.10
           with:
             vid: ${{ secrets.VID }}
             vkey: ${{ secrets.VKEY }}
@@ -65,7 +65,7 @@ jobs:
           name: Veracode Pipeline-Scan Results
       - name: Convert pipeline scan output to SARIF format
         id: convert
-        uses: Veracode/veracode-pipeline-scan-results-to-sarif@v1.0.6
+        uses: Veracode/veracode-pipeline-scan-results-to-sarif@support-saf-scanners 
         with:
           pipeline-results-json: results.json
           output-results-sarif: veracode-results.sarif
