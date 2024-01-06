@@ -28,25 +28,25 @@ jobs:
         path: target/verademo.war
         
   pipeline_scan:
-      needs: build
+      #needs: build
       runs-on: ubuntu-latest
       name: pipeline scan
       steps:
         - name: checkout repo
           uses: actions/checkout@v3
 
-        - name: get archive
-          uses: actions/download-artifact@v3
-          with:
-            name: verademo.war
+        #- name: get archive
+        #  uses: actions/download-artifact@v3
+        #  with:
+        #    name: verademo.war
         - name: pipeline-scan action step
           id: pipelien-scan
           uses: veracode/Veracode-pipeline-scan-action@v1.0.10
           with:
             vid: ${{ secrets.VID }}
             vkey: ${{ secrets.VKEY }}
-            #file: "vulpy-master.zip"
-            file: "verademo.war" 
+            file: "vulpy-master.zip"
+            #file: "verademo.war" 
             request_policy: "VeraDemo Policy"
             #store_baseline_file: true
             #store_baseline_file_branch: "feature-123"
