@@ -46,5 +46,9 @@ jobs:
             vkey: ${{ secrets.VKEY }}
             file: "verademo.war" 
             veracode_policy_name: "Veracode Recommended Medium + SCA"
+            store_baseline_file: true
+            store_baseline_file_branch: main
+            create_baseline_from: standard
+            baseline_file: "veracode-pipeline-scan-baseline-file.json"
             debug: 1
             fail_build: false
