@@ -39,7 +39,7 @@ jobs:
             name: verademo.war
         - name: pipeline-scan action step
           id: pipelien-scan
-          uses: veracode/Veracode-pipeline-scan-action@adjustPolicyUsage
+          uses: veracode/Veracode-pipeline-scan-action@fixBaselineCommit
           #julz0815/Veracode-pipeline-scan-action@beta-0.29
           with:
             vid: ${{ secrets.VID }}
