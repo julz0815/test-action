@@ -2,6 +2,8 @@ on:
   workflow_dispatch:
   push:
     branches: [feature-123]
+  pull_request:
+    branches: [main]
 
 
 
