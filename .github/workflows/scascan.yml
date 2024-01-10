@@ -16,6 +16,5 @@ jobs:
       - name: Run Veracode SCA
         uses: veracode/veracode-sca@WorkspaceAutomation
         with:
-          workspace_automation: true
           VID: '${{ secrets.VID }}'
           VKEY: '${{ secrets.VKEY }}'
