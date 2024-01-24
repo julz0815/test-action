@@ -51,6 +51,6 @@ jobs:
             vkey: '${{ secrets.VKEY }}'
             scantimeout: 15
             deleteincompletescan: true
-            createsandbox: true
-            sandboxname: 'GitHub App Scans'
+            #createsandbox: true
+            #sandboxname: 'GitHub App Scans'
             failbuild: true
