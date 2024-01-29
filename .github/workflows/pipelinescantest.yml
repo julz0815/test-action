@@ -45,7 +45,7 @@ jobs:
             vid: ${{ secrets.VID }}
             vkey: ${{ secrets.VKEY }}
             file: "verademo.war" 
-            veracode_policy_name: "SAST ONLY - McKesson Information Systems, Acquisition, Development and Maintenance Policy"
+            veracode_policy_name: "Veracode Recommended Medium + SCA"
             store_baseline_file: true
             store_baseline_file_branch: main
             create_baseline_from: standard
