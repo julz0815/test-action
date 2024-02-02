@@ -20,5 +20,5 @@ jobs:
             SRCCLR_API_TOKEN: ${{ secrets.SRCCLR_API_TOKEN }}
         uses: veracode/veracode-sca@noupload
         with:
-          no-upload: true
+          no-upload: false
           debug: true 
