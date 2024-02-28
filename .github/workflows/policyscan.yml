@@ -26,7 +26,7 @@ jobs:
         path: target/verademo.war
 
 
-  ppolicy_scan:
+  policy_scan:
       needs: build
       runs-on: ubuntu-latest
       name: pipeline scan
@@ -39,7 +39,7 @@ jobs:
             name: verademo.war
         - name: policye-scan action step
           id: policy-scan
-          uses: veracode/uploadandscan-action@deleteIncompleteScan
+          uses: veracode/uploadandscan-action@v0.2.6
           #julz0815/Veracode-pipeline-scan-action@beta-0.29
           with:
             appname: github-uploadandscan
@@ -52,4 +52,41 @@ jobs:
             scantimeout: 15
             deleteincompletescan: true
             failbuild: true
+        - name: get policy flaws
+          run: |
+            cd /tmp
+            export VERACODE_API_KEY_ID=${{ secrets.VERACODE_API_ID }}
+            export VERACODE_API_KEY_SECRET=${{ secrets.VERACODE_API_KEY }}
+            guid=$(http --auth-type veracode_hmac GET "https://api.veracode.com/appsec/v1/applications?name=github-uploadandscan" | jq -r '._embedded.applications[0].guid') 
+            echo GUID: ${guid}
+            total_flaws=$(http --auth-type veracode_hmac GET "https://api.veracode.com/appsec/v2/applications/${guid}/findings?scan_type=STATIC&violates_policy=True" | jq -r '.page.total_elements')
+            echo TOTAL_FLAWS: ${total_flaws}
+            http --auth-type veracode_hmac GET "https://api.veracode.com/appsec/v2/applications/${guid}/findings?scan_type=STATIC&violates_policy=True&size=${total_flaws}" > policy_flaws.json
+  
+        - name: save results file
+          uses: actions/upload-artifact@v3
+          with:
+            name: policy-flaws
+            path: /tmp/policy_flaws.json
+
+  results_to_security_tab:
+    needs: policy_scan
+    runs-on: ubuntu-latest
+    #if: ${{ failure() && inputs.enable_security_report }}
+    if: always()
+    name: Send policy scan report to Security tab
+    steps:
+      - name: Get scan results
+        uses: actions/download-artifact@v3
+        with:
+          name: policy-flaws
+          path: /tmp
+      - name: Convert policy scan output to SARIF format
+        id: convert
+        uses: Veracode/veracode-pipeline-scan-results-to-sarif@feature/DXS_254
+        with:
+          scan-type: policy
+          results-json: '/tmp/policy_flaws.json'
+          output-results-sarif: veracode-results.sarif
+          githubToken: ${{ inputs.token }}
 
