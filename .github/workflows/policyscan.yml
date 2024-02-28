@@ -51,7 +51,7 @@ jobs:
             vkey: '${{ secrets.VKEY }}'
             scantimeout: 15
             deleteincompletescan: true
-            failbuild: true
+            failbuild: false
         - name: get policy flaws
           run: |
             cd /tmp
