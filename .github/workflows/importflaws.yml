@@ -28,38 +28,40 @@ jobs:
           name: policy-flaws
           path: /tmp/policy_flaws.json
 
-  results_to_security_tab:
-    needs: get-policy-flaws
-    runs-on: ubuntu-latest
-    #if: ${{ failure() && inputs.enable_security_report }}
-    if: always()
-    name: Send policy scan report to Security tab
-    steps:
-      - name: Get scan results
-        uses: actions/download-artifact@v3
-        with:
-          name: policy-flaws
-          path: /tmp
-      - name: Convert policy scan output to SARIF format
-        id: convert
-        uses: Veracode/veracode-pipeline-scan-results-to-sarif@feature/DXS_254
-        with:
-          scan-type: policy
-          results-json: '/tmp/policy_flaws.json'
-          output-results-sarif: veracode-results.sarif
-          
-#  import-policy-flaws:
+#  results_to_security_tab:
 #    needs: get-policy-flaws
 #    runs-on: ubuntu-latest
+#    #if: ${{ failure() && inputs.enable_security_report }}
+#    if: always()
+#    name: Send policy scan report to Security tab
 #    steps:
-#      - name: get flaw file
+#      - name: Get scan results
 #        uses: actions/download-artifact@v3
 #        with:
 #          name: policy-flaws
 #          path: /tmp
-#
-#      - name: import flaws as issues
-#        uses: veracode/veracode-flaws-to-issues@v2.1.18
+#      - name: Convert policy scan output to SARIF format
+#        id: convert
+#        uses: Veracode/veracode-pipeline-scan-results-to-sarif@feature/DXS_254
 #        with:
-#          scan-results-json: '/tmp/policy_flaws.json'
-#          debug: true
+#          scan-type: policy
+#          results-json: '/tmp/policy_flaws.json'
+#          output-results-sarif: veracode-results.sarif
+          
+  import-policy-flaws:
+    needs: get-policy-flaws
+    runs-on: ubuntu-latest
+    steps:
+      - name: get flaw file
+        uses: actions/download-artifact@v3
+        with:
+          name: policy-flaws
+          path: /tmp
+
+      - name: import flaws as issues
+        uses: veracode/veracode-flaws-to-issues@pathReplace
+        with:
+          scan-results-json: '/tmp/policy_flaws.json'
+          debug: true
+          source_base_path_1: "com/:src/main/java/com/"
+          source_base_path_2: "WEB-INF:src/main/webapp/WEB-INF"
