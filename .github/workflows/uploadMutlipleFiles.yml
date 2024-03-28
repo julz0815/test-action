@@ -20,10 +20,10 @@ jobs:
           appname: test-action
           createprofile: true
           policy: 'Veracode Recommended Medium + SCA'
-          version: '${{ github.run_id }}'
-          filepath: ./veracode-artifacts
-          vid: '${{ secrets.VID }}'
-          vkey: '${{ secrets.VKEY }}'
+          version: ${{ github.run_id }}
+          filepath: ./veracode-artifacts/
+          vid: ${{ secrets.VID }}
+          vkey: ${{ secrets.VKEY }}
           scantimeout: 15
           #include: ${{ inputs.modules_to_scan }}
           failbuild: true
