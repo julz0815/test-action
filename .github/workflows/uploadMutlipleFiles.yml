@@ -21,7 +21,7 @@ jobs:
           createprofile: true
           policy: 'Veracode Recommended Medium + SCA'
           version: ${{ github.run_id }}
-          filepath: ./veracode-artifacts/
+          filepath: ./veracode-artifacts/verademo.war
           vid: ${{ secrets.VID }}
           vkey: ${{ secrets.VKEY }}
           scantimeout: 15
