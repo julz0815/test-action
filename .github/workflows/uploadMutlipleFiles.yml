@@ -1,0 +1,30 @@
+on:
+  workflow_dispatch:
+  pull_request:
+    branches:
+      - main
+      - feature-123
+      
+jobs:
+  policy_scan:
+    runs-on: ubuntu-latest
+    name: policy scan
+    steps:
+      - name: checkout repo
+        uses: actions/checkout@v4
+      
+      - name: Veracode Upload and Scan Action Step
+        uses: veracode/uploadandscan-action@uploadMultipleFiles
+        id: upload_and_scan
+        with:
+          appname: test-action
+          createprofile: true
+          policy: 'Veracode Recommended Medium + SCA'
+          version: '${{ github.run_id }}'
+          filepath: ./veracode-artifacts
+          vid: '${{ secrets.VID }}'
+          vkey: '${{ secrets.VKEY }}'
+          scantimeout: 15
+          #include: ${{ inputs.modules_to_scan }}
+          failbuild: true
+          use_upgraded_version: false
