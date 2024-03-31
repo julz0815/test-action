@@ -61,7 +61,7 @@ jobs:
           path: /tmp
 
       - name: import flaws as issues
-        uses: veracode/veracode-flaws-to-issues@fixEmptyresults
+        uses: veracode/veracode-flaws-to-issues@FixEmptyresults
         with:
           scan-results-json: '/tmp/policy_flaws.json'
 #          debug: true
