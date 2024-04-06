@@ -6,29 +6,9 @@ on:
 
 
 jobs:
-        
-  pipeline_scan:
-      runs-on: ubuntu-latest
-      name: pipeline scan
-      steps:
-        - name: checkout repo
-          uses: actions/checkout@v3
-
-        - name: pipeline-scan action step
-          id: pipelien-scan
-          uses: veracode/Veracode-pipeline-scan-action@v1.0.12
-          with:
-            vid: ${{ secrets.VID }}
-            vkey: ${{ secrets.VKEY }}
-            file: "target/verademo.war" 
-            request_policy: "VeraDemo Policy"
-            debug: 0
-            fail_build: false
-
   veracode-fix:
-    needs: pipeline_scan
     runs-on: ubuntu-latest
-    name: create fixs
+    name: create fixes
     steps:
       - name: checkout repo
         uses: actions/checkout@v3
