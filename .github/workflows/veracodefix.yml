@@ -6,29 +6,8 @@ on:
 
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v3
-    - uses: actions/setup-java@v3
-      with:
-        distribution: 'zulu'
-        java-version: 8
-    - name: Cache Maven packages
-      uses: actions/cache@v3
-      with:
-        path: ~/.m2
-        key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
-    - name: Build with Maven
-      run: mvn clean package
-
-    - uses: actions/upload-artifact@v3
-      with:
-        name: verademo.war
-        path: target/verademo.war
         
   pipeline_scan:
-      needs: build
       runs-on: ubuntu-latest
       name: pipeline scan
       steps:
@@ -45,13 +24,9 @@ jobs:
           with:
             vid: ${{ secrets.VID }}
             vkey: ${{ secrets.VKEY }}
-            #file: "auth.js.zip"
-            file: "verademo.war" 
+            file: "target/verademo.war" 
             request_policy: "VeraDemo Policy"
-            #store_baseline_file: true
-            #store_baseline_file_branch: "feature-123"
-            #create_baseline_from: "standard"
-            debug: 1
+            debug: 0
             fail_build: false
 
   veracode-fix:
@@ -67,7 +42,7 @@ jobs:
         id: convert
         uses: Veracode/veracode-fix@main
         with:
-          inputFile: results.json
+          file: results.json
           vid: ${{ secrets.VID }}
           vkey: ${{ secrets.VKEY }}
           source_base_path_1: "com/:src/main/java/com/"
