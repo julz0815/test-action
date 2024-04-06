@@ -13,10 +13,6 @@ jobs:
       - name: checkout repo
         uses: actions/checkout@v3
           
-      - name: get flaw file
-        uses: actions/download-artifact@v2
-        with:
-          name: Veracode Pipeline-Scan Results
       - name: Create fixes from static findings
         id: convert
         uses: Veracode/veracode-fix@main
