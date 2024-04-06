@@ -22,4 +22,5 @@ jobs:
           vkey: ${{ secrets.VKEY }}
           source_base_path_1: "com/:src/main/java/com/"
           source_base_path_2: "WEB-INF:src/main/webapp/WEB-INF"
+          language: java
           debug: true
