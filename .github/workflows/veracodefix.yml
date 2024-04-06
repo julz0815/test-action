@@ -14,10 +14,6 @@ jobs:
         - name: checkout repo
           uses: actions/checkout@v3
 
-        - name: get archive
-          uses: actions/download-artifact@v3
-          with:
-            name: verademo.war
         - name: pipeline-scan action step
           id: pipelien-scan
           uses: veracode/Veracode-pipeline-scan-action@v1.0.12
@@ -34,6 +30,9 @@ jobs:
     runs-on: ubuntu-latest
     name: create fixs
     steps:
+      - name: checkout repo
+        uses: actions/checkout@v3
+          
       - name: get flaw file
         uses: actions/download-artifact@v2
         with:
