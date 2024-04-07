@@ -1,9 +1,9 @@
 on:
   workflow_dispatch:
-  pull_request:
-    branches:
-      - main
-      - feature-123
+#  pull_request:
+#    branches:
+#      - main
+#      - feature-123
 
 jobs:
   get-policy-flaws:
