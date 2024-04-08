@@ -11,7 +11,148 @@
     }
   },
   "scan_id": "9deacf5e-a915-4792-98c0-a9c3c6b9eac5",
-  "scan_status": "SUCCESS",
+  "scan_status": "SUCCESS",{
+   "_links": {
+      "root": {
+         "href": "/",
+         "name": "",
+         "templated": false
+      },
+      "self": {
+         "href": "/scans/ff1bfe2a-1aaf-4455-b4a8-5c66869c7878/findings",
+         "name": "",
+         "templated": false
+      },
+      "help": {
+         "href": "https://help.veracode.com/reader/tS9CaFwL4_lbIEWWomsJoA/ovfZGgu96UINQxIuTqRDwg",
+         "name": "",
+         "templated": false
+      },
+      "create": {
+         "href": "",
+         "name": "",
+         "templated": false
+      },
+      "start": {
+         "href": "",
+         "name": "",
+         "templated": false
+      },
+      "details": {
+         "href": "",
+         "name": "",
+         "templated": false
+      },
+      "upload": {
+         "href": "",
+         "name": "",
+         "templated": false
+      },
+      "cancel": {
+         "href": "",
+         "name": "",
+         "templated": false
+      }
+   },
+   "scan_id": "ff1bfe2a-1aaf-4455-b4a8-5c66869c7878",
+   "scan_status": "SUCCESS",
+   "message": "Scan successful. Results size: 961798 bytes",
+   "modules": [
+      "verademo.war",
+      "JS files within verademo.war"
+   ],
+   "modules_count": 2,
+   "findings": [
+      {
+         "title": "java.sql.Statement.executeQuery",
+         "issue_id": 1020,
+         "gob": "B",
+         "severity": 4,
+         "issue_type_id": "taint",
+         "issue_type": "Improper Neutralization of Special Elements used in an SQL Command ('SQL Injection')",
+         "cwe_id": "89",
+         "display_text": "\u003cspan\u003eThis database query contains a SQL injection flaw.  The call to java.sql.Statement.executeQuery() constructs a dynamic SQL query using a variable derived from untrusted input.  An attacker could exploit this flaw to execute arbitrary SQL queries against the database. The first argument to executeQuery() contains tainted data from the variable sql. The tainted data originated from an earlier call to AnnotationVirtualController.vc_annotation_entry.\u003c/span\u003e \u003cspan\u003eAvoid dynamically constructing SQL queries.  Instead, use parameterized prepared statements to prevent the database from interpreting the contents of bind variables as part of the query.  Always validate untrusted input to ensure that it conforms to the expected format, using centralized data validation routines when possible.\u003c/span\u003e \u003cspan\u003eReferences: \u003ca href=\"https://cwe.mitre.org/data/definitions/89.html\"\u003eCWE\u003c/a\u003e \u003ca href=\"https://owasp.org/www-community/attacks/SQL_Injection\"\u003eOWASP\u003c/a\u003e\u003c/span\u003e",
+         "files": {
+            "source_file": {
+               "file": "com/veracode/verademo/controller/UserController.java",
+               "line": 253,
+               "function_name": "showPasswordHint",
+               "qualified_function_name": "com.veracode.verademo.controller.UserController.showPasswordHint",
+               "function_prototype": "java.lang.String showPasswordHint(java.lang.String)",
+               "scope": "com.veracode.verademo.controller.UserController"
+            }
+         },
+         "flaw_match": {
+            "procedure_hash": "3959868652",
+            "prototype_hash": "649289062",
+            "flaw_hash": "3392777041",
+            "flaw_hash_count": 1,
+            "flaw_hash_ordinal": 1,
+            "cause_hash": "1176028798",
+            "cause_hash_count": 1,
+            "cause_hash_ordinal": 1,
+            "cause_hash2": "1522093433",
+            "cause_hash2_ordinal": "5"
+         },
+         "stack_dumps": {
+            "stack_dump": [
+               {
+                  "Frame": [
+                     {
+                        "FrameId": "0",
+                        "FunctionName": "showPasswordHint",
+                        "SourceFile": "com/veracode/verademo/controller/UserController.java",
+                        "SourceLine": "252",
+                        "SourceFileId": "41",
+                        "StatementText": {},
+                        "QualifiedFunctionName": "com.veracode.verademo.controller.UserController.showPasswordHint",
+                        "FunctionPrototype": "java.lang.String showPasswordHint(java.lang.String)",
+                        "RelativeLocation": "38"
+                     },
+                     {
+                        "FrameId": "1",
+                        "FunctionName": "showPasswordHint",
+                        "SourceFile": "com/veracode/verademo/controller/UserController.java",
+                        "SourceLine": "249",
+                        "SourceFileId": "41",
+                        "StatementText": {},
+                        "VarNames": "/**X-VC scoperef targetid=\"12931\" */username/**X-VC /scoperef */",
+                        "QualifiedFunctionName": "com.veracode.verademo.controller.UserController.showPasswordHint",
+                        "FunctionPrototype": "java.lang.String showPasswordHint(java.lang.String)",
+                        "RelativeLocation": "25"
+                     },
+                     {
+                        "FrameId": "2",
+                        "FunctionName": "showPasswordHint",
+                        "SourceFile": "com/veracode/verademo/controller/UserController.java",
+                        "SourceLine": "238",
+                        "SourceFileId": "41",
+                        "StatementText": {},
+                        "VarNames": "/**X-VC defscope id=\"12931\" */java.lang.String username/**X-VC /defscope */",
+                        "QualifiedFunctionName": "com.veracode.verademo.controller.UserController.showPasswordHint",
+                        "FunctionPrototype": "java.lang.String showPasswordHint(java.lang.String)",
+                        "RelativeLocation": "0"
+                     },
+                     {
+                        "FrameId": "3",
+                        "FunctionName": "vc_annotation_entry",
+                        "SourceFile": "UNKNOWN",
+                        "SourceLine": "-1",
+                        "SourceFileId": "-1",
+                        "StatementText": {},
+                        "VarNames": "/**X-VC scoperef targetid=\"90828\" */np54/**X-VC /scoperef */",
+                        "QualifiedFunctionName": "AnnotationVirtualController.vc_annotation_entry",
+                        "FunctionPrototype": "void vc_annotation_entry(java.lang.String)"
+                     }
+                  ]
+               }
+            ]
+         },
+         "flaw_details_link": "https://downloads.veracode.com/securityscan/cwe/v4/java/89.html"
+      }
+   ],
+   "selected_modules": []
+}
   "message": "Scan successful. Results size: 411846 bytes",
   "modules": [
     "verademo.war",
