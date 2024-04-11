@@ -76,3 +76,4 @@ jobs:
           cwe: '89,117'
           debug: false
           prComment: true
+          access_token: ${{ secrets.access_token }}
