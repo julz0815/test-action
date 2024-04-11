@@ -54,6 +54,8 @@ jobs:
     runs-on: ubuntu-latest
     needs: pipeline_scan
     name: create fixes
+    permissions:
+          checks: write
     steps:
       - name: checkout repo
         uses: actions/checkout@v3
