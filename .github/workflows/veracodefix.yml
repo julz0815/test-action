@@ -68,13 +68,12 @@ jobs:
         id: convert
         uses: Veracode/veracode-fix@main
         with:
-          inputFile: filtered_results.json
+          inputFile: results.json
           vid: ${{ secrets.VID }}
           vkey: ${{ secrets.VKEY }}
           source_base_path_1: "com/:src/main/java/com/"
           source_base_path_2: "WEB-INF:src/main/webapp/WEB-INF"
           language: java
-          #cwe: '89,117'
           debug: false
           prComment: true
           access_token: ${{ secrets.access_token }}
