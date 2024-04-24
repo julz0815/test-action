@@ -23,5 +23,7 @@ jobs:
           source_base_path_1: "com/:src/main/java/com/"
           source_base_path_2: "WEB-INF:src/main/webapp/WEB-INF"
           language: java
+          cwe: 89,117
+          fixType: 'batch'
           debug: true
           prComment: true
