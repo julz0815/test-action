@@ -76,5 +76,5 @@ jobs:
           language: java
           cwe: 89,117
           fixType: 'single'
-          debug: true
+          debug: false
           prComment: true
