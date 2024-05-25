@@ -78,3 +78,4 @@ jobs:
           fixType: 'batch'
           debug: false
           prComment: true
+          files: 'changed'
