@@ -79,4 +79,3 @@ jobs:
           debug: false
           prComment: true
           files: 'changed'
-          codeSuggestion: true
