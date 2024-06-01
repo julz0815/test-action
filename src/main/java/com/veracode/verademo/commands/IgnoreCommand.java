@@ -8,6 +8,8 @@ import java.sql.Statement;
 
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
+import org.apache.commons.lang3.StringUtils;
+import java.util.*;
 
 public class IgnoreCommand implements BlabberCommand {	
 	private static final Logger logger = LogManager.getLogger("VeraDemo:IgnoreCommand");
@@ -24,7 +26,7 @@ public class IgnoreCommand implements BlabberCommand {
 
 	@Override
 	public void execute(String blabberUsername) {
-		String sqlQuery = "DELETE FROM listeners WHERE blabber=? AND listener=?;";
+		String sqlQuery = StringUtils.normalizeSpace("DELETE FROM listeners WHERE blabber=? AND listener=?;");
 		logger.info(sqlQuery);
 		PreparedStatement action;
 		try {
@@ -41,10 +43,19 @@ public class IgnoreCommand implements BlabberCommand {
 			result.next();
 			
 			/* START BAD CODE */
-			String event = username + " is now ignoring " + blabberUsername + "(" + result.getString(1) + ")";
+			Set<String> whitelistResultGetstring1 = new HashSet<>(Arrays.asList("item1", "item2", "item3"));
+			if (!result.getString(1).matches("\\w+(\\s*\\.\\s*\\w+)*") && !whitelistResultGetstring1.contains(result.getString(1)))
+			    throw new IllegalArgumentException();
+			Set<String> whitelistBlabberusername = new HashSet<>(Arrays.asList("item1", "item2", "item3"));
+			if (!blabberUsername.matches("\\w+(\\s*\\.\\s*\\w+)*") && !whitelistBlabberusername.contains(blabberUsername))
+			    throw new IllegalArgumentException();
+
+			String event = username + " is now ignoring " + blabberUsername + "(" + StringUtils.normalizeSpace(result.getString(1)) + ")";
 			sqlQuery = "INSERT INTO users_history (blabber, event) VALUES (\"" + username + "\", \"" + event + "\")";
 			logger.info(sqlQuery);
 			sqlStatement.execute(sqlQuery);
+
+
 			/* END BAD CODE */
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
