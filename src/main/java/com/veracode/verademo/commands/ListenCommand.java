@@ -8,6 +8,9 @@ import java.sql.Statement;
 
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
+import org.apache.commons.lang3.StringUtils;
+import java.net.URLEncoder;
+import java.util.*;
 
 public class ListenCommand implements BlabberCommand {
 	private static final Logger logger = LogManager.getLogger("VeraDemo:ListenCommand");
@@ -24,7 +27,7 @@ public class ListenCommand implements BlabberCommand {
 
 	@Override
 	public void execute(String blabberUsername) {
-		String sqlQuery = "INSERT INTO listeners (blabber, listener, status) values (?, ?, 'Active');";
+		String sqlQuery = StringUtils.normalizeSpace("INSERT INTO listeners (blabber, listener, status) values (?, ?, 'Active');");
 		logger.info(sqlQuery);
 		PreparedStatement action;
 		try {
@@ -41,7 +44,13 @@ public class ListenCommand implements BlabberCommand {
 			result.next();
 			
 			/* START BAD CODE -----*/
-			String event = username + " started listening to " + blabberUsername + "(" + result.getString(1) + ")";
+			Set<String> whitelistBlabberusername = new HashSet<>(Arrays.asList("item1", "item2", "item3"));
+			if (!blabberUsername.matches("\\w+(\\s*\\.\\s*\\w+)*") && !whitelistBlabberusername.contains(blabberUsername))
+			    throw new IllegalArgumentException();
+			Set<String> whitelistResultGetstring1 = new HashSet<>(Arrays.asList("item1", "item2", "item3"));
+			if (!result.getString(1).matches("\\w+(\\s*\\.\\s*\\w+)*") && !whitelistResultGetstring1.contains(result.getString(1)))
+			    throw new IllegalArgumentException();
+			String event = username + " started listening to " + blabberUsername + "(" + URLEncoder.encode(result.getString(1)) + ")";
 			sqlQuery = "INSERT INTO users_history (blabber, event) VALUES (\"" + username + "\", \"" + event + "\")";
 			logger.info(sqlQuery);
 			sqlStatement.execute(sqlQuery);
