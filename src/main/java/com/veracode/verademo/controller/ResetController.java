@@ -26,6 +26,9 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.net.URLEncoder;
+import org.apache.commons.text.StringEscapeUtils;
+import org.apache.commons.lang3.StringUtils;
 
 @Controller
 @Scope("request")
@@ -106,7 +109,7 @@ public class ResetController {
 			usersStatement = connect.prepareStatement(
 					"INSERT INTO users (username, password, password_hint, created_at, last_login, real_name, blab_name) values (?, ?, ?, ?, ?, ?, ?);");
 			for (int i = 0; i < users.length; i++) {
-				logger.info("Adding user " + users[i].getUserName());
+				logger.info("Adding user " + StringUtils.normalizeSpace(users[i].getUserName()));
 				usersStatement.setString(1, users[i].getUserName());
 				usersStatement.setString(2, users[i].getPassword());
 				usersStatement.setString(3, users[i].getPasswordHint());
@@ -129,7 +132,7 @@ public class ResetController {
 						String blabber = users[i].getUserName();
 						String listener = users[j].getUserName();
 
-						logger.info("Adding " + listener + " as a listener of " + blabber);
+						logger.info("Adding " + StringEscapeUtils.escapeJava(listener) + " as a listener of " + blabber);
 
 						listenersStatement.setString(1, blabber);
 						listenersStatement.setString(2, listener);
@@ -156,7 +159,7 @@ public class ResetController {
 				long vary = rand.nextInt(30 * 24 * 3600);
 
 				String username = users[randomUserOffset].getUserName();
-				logger.info("Adding a blab for " + username);
+				logger.info("Adding a blab for " + StringUtils.normalizeSpace(username));
 
 				blabsStatement.setString(1, username);
 				blabsStatement.setString(2, blabContent);
@@ -190,8 +193,8 @@ public class ResetController {
 					// get the number or seconds until some time in the last 30 days.
 					long vary = rand.nextInt(30 * 24 * 3600);
 
-					logger.info("Adding a comment from " + username + " on blab ID " + String.valueOf(i));
-					logger.info("Adding another comment from " + username + " on blab ID " + String.valueOf(i));
+					logger.info("Adding a comment from " + username + " on blab ID " + String.valueOf(URLEncoder.encode(i.toString())));
+					logger.info("Adding another comment from " + StringEscapeUtils.escapeJava(username) + " on blab ID " + String.valueOf(i));
 					commentsStatement.setInt(1, i);
 					commentsStatement.setString(2, username);
 					commentsStatement.setString(3, comment);
