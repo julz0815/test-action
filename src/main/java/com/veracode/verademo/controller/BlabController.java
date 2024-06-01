@@ -27,6 +27,9 @@ import com.veracode.verademo.model.Blab;
 import com.veracode.verademo.model.Blabber;
 import com.veracode.verademo.model.Comment;
 import com.veracode.verademo.utils.Constants;
+import org.apache.commons.text.StringEscapeUtils;
+import org.apache.commons.lang3.StringUtils;
+import java.util.*;
 
 @Controller
 @Scope("request")
@@ -450,7 +453,7 @@ public class BlabController {
 			Model model,
 			HttpServletRequest httpRequest)
 	{
-		if (sort == null || sort.isEmpty()) {
+		if (sort == null || StringEscapeUtils.escapeJava(sort).isEmpty()) {
 			sort = "blab_name ASC";
 		}
 
@@ -484,10 +487,16 @@ public class BlabController {
 
 			// Find the Blabbers
 			logger.info(blabbersSql);
+		Set<String> whitelistSort = new HashSet<>(Arrays.asList("item1", "item2", "item3"));
+		if (!sort.matches("\\w+(\\s*\\.\\s*\\w+)*") && !whitelistSort.contains(sort))
+		    throw new IllegalArgumentException();
+
 			blabberQuery = connect.prepareStatement(blabbersSql);
+
 			blabberQuery.setString(1, username);
 			blabberQuery.setString(2, username);
 			ResultSet blabbersResults = blabberQuery.executeQuery();
+
 			/* END BAD CODE */
 
 			List<Blabber> blabbers = new ArrayList<Blabber>();
@@ -555,8 +564,8 @@ public class BlabController {
 			return nextView = "redirect:login?target=blabbers";
 		}
 
-		logger.info("blabberUsername = " + blabberUsername);
-		logger.info("command = " + command);
+		logger.info("blabberUsername = " + StringUtils.normalizeSpace(blabberUsername));
+		logger.info("command = " + StringUtils.normalizeSpace(command));
 
 		Connection connect = null;
 		PreparedStatement action = null;
