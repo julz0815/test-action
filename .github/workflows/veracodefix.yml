@@ -79,5 +79,5 @@ jobs:
           debug: false
           prComment: true
           files: 'changed'
-          codeSuggestion: true
+          codeSuggestion: false
           createPR: true
