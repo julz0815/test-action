@@ -21,4 +21,5 @@ jobs:
         uses: veracode/veracode-sca@issueGenerationWorflowApp
         with:
           no-upload: false
+          create-issues: true
           debug: true 
