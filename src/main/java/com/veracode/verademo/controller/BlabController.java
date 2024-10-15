@@ -27,6 +27,7 @@ import com.veracode.verademo.model.Blab;
 import com.veracode.verademo.model.Blabber;
 import com.veracode.verademo.model.Comment;
 import com.veracode.verademo.utils.Constants;
+import org.apache.commons.lang3.StringUtils;
 
 @Controller
 @Scope("request")
@@ -483,7 +484,7 @@ public class BlabController {
 			connect = DriverManager.getConnection(Constants.create().getJdbcConnectionString());
 
 			// Find the Blabbers
-			logger.info(blabbersSql);
+			logger.info(StringUtils.normalizeSpace(blabbersSql));
 			blabberQuery = connect.prepareStatement(blabbersSql);
 			blabberQuery.setString(1, username);
 			blabberQuery.setString(2, username);
@@ -555,8 +556,8 @@ public class BlabController {
 			return nextView = "redirect:login?target=blabbers";
 		}
 
-		logger.info("blabberUsername = " + blabberUsername);
-		logger.info("command = " + command);
+		logger.info("blabberUsername = " + StringUtils.normalizeSpace(blabberUsername));
+		logger.info("command = " + StringUtils.normalizeSpace(command));
 
 		Connection connect = null;
 		PreparedStatement action = null;
