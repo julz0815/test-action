@@ -78,6 +78,6 @@ jobs:
           fixType: 'single'
           debug: false
           prComment: true
-          files: 'changed'
+          files: 'all'
           codeSuggestion: false
           createPR: true
