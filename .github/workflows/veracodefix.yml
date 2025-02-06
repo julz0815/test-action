@@ -22,7 +22,7 @@ jobs:
     - name: Build with Maven
       run: mvn clean package
 
-    - uses: actions/upload-artifact@v3
+    - uses: actions/upload-artifact@v4
       with:
         name: verademo.war
         path: target/verademo.war
@@ -36,7 +36,7 @@ jobs:
           uses: actions/checkout@v3
 
         - name: get archive
-          uses: actions/download-artifact@v3
+          uses: actions/download-artifact@v4
           with:
             name: verademo.war
         - name: pipeline-scan action step
@@ -60,7 +60,7 @@ jobs:
         uses: actions/checkout@v3
 
       - name: get flaw file
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: Veracode Pipeline-Scan Results
           
