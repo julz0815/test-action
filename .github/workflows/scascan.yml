@@ -20,7 +20,7 @@ jobs:
             SRCCLR_API_TOKEN: ${{ secrets.SRCCLR_API_TOKEN }}
         uses: veracode/veracode-sca@artifactname
         with:
-          create-issues: true
+          create-issues: false
           artifactname: scan1
           debug: true
 
@@ -36,7 +36,7 @@ jobs:
             SRCCLR_API_TOKEN: ${{ secrets.SRCCLR_API_TOKEN }}
         uses: veracode/veracode-sca@artifactname
         with:
-          create-issues: true
+          create-issues: false
           artifactname: scan2
           debug: true
 
@@ -52,7 +52,7 @@ jobs:
             SRCCLR_API_TOKEN: ${{ secrets.SRCCLR_API_TOKEN }}
         uses: veracode/veracode-sca@artifactname
         with:
-          create-issues: true
+          create-issues: false
           artifactname: scan3
           debug: true
 
