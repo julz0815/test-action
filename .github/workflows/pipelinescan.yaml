@@ -90,6 +90,6 @@ jobs:
       - name: import flaws as issues
         uses: veracode/veracode-flaws-to-issues@closeIssues
         with:
-          scan-results-json: '/tmp/filtered_results.json'
+          scan-results-json: '/tmp/Veracode Pipeline-Scan Results - /filtered_results.json'
           debug: true
 
