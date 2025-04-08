@@ -111,7 +111,8 @@ public class UserController {
 			target = "";
 		}
 
-		logger.info("Entering showLogin with username " + username + " and target " + target);
+		/*logger.info("Entering showLogin with username " + username + " and target " + target);*/
+		logger.info("Entering showLogin with username and target ");
 
 		model.addAttribute("username", username);
 		model.addAttribute("target", target);
