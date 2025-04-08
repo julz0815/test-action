@@ -8,6 +8,7 @@ on:
 jobs:
   get-policy-flaws:
     runs-on: ubuntu-latest
+    continue-on-error: true
     container: 
       image: veracode/api-signing:latest
     steps:
@@ -27,6 +28,7 @@ jobs:
         with:
           name: policy-flaws
           path: /tmp/policy_flaws.json
+      
 
 #  results_to_security_tab:
 #    needs: get-policy-flaws
