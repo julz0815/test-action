@@ -41,7 +41,7 @@ jobs:
             name: verademo.war
         - name: pipeline-scan action step
           id: pipelien-scan
-          uses: veracode/Veracode-pipeline-scan-action@v1.0.12
+          uses: veracode/Veracode-pipeline-scan-action@v1.0.18
           with:
             vid: ${{ secrets.VID }}
             vkey: ${{ secrets.VKEY }}
