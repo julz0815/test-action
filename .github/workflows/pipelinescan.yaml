@@ -83,9 +83,9 @@ jobs:
     steps:
       - name: get flaw file
         uses: actions/download-artifact@v4
-        with:
-          name: Veracode Pipeline-Scan Results - 
-          path: /tmp
+        #with:
+          #name: Veracode Pipeline-Scan Results - 
+          #path: /tmp
 
       - name: import flaws as issues
         uses: veracode/veracode-flaws-to-issues@closeIssues
