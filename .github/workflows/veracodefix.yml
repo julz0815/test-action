@@ -66,16 +66,13 @@ jobs:
           
       - name: Create fixes from static findings
         id: convert
-        uses: Veracode/veracode-fix@main
+        uses: Veracode/veracode-fix@workflowApp
         with:
           inputFile: results.json
           vid: ${{ secrets.VID }}
           vkey: ${{ secrets.VKEY }}
-          source_base_path_1: "com/:src/main/java/com/"
-          source_base_path_2: "WEB-INF:src/main/webapp/WEB-INF"
-          language: java
-          cwe: 89,117
-          fixType: 'single'
+          cwe: 117
+          fixType: 'batch'
           debug: false
           prComment: true
           files: 'all'
