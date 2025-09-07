@@ -55,7 +55,7 @@ jobs:
     needs: pipeline_scan
     name: create fixes
     permissions: write-all
-    if: always
+    if: ${{ always() }}
     steps:
       - name: checkout repo
         uses: actions/checkout@v3
