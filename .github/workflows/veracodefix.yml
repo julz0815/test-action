@@ -78,3 +78,4 @@ jobs:
           files: 'all'
           codeSuggestion: false
           createPR: true
+          useGitHubApp: 'true'
