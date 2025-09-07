@@ -50,6 +50,8 @@ import com.veracode.verademo.model.Blabber;
 import com.veracode.verademo.utils.Constants;
 import com.veracode.verademo.utils.User;
 import com.veracode.verademo.utils.UserFactory;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.text.StringEscapeUtils;
 
 /**
  * @author johnadmin
@@ -227,7 +229,7 @@ public class UserController {
 		}
 
 		// Redirect to the appropriate place based on login actions above
-		logger.info("Redirecting to view: " + nextView);
+		logger.info("Redirecting to view: " + StringUtils.normalizeSpace(nextView));
 		return nextView;
 	}
 
@@ -235,7 +237,7 @@ public class UserController {
 	@ResponseBody
 	public String showPasswordHint(String username)
 	{
-		logger.info("Entering password-hint with username: " + username);
+		logger.info("Entering password-hint with username: " + StringEscapeUtils.escapeJava(username));
 
 		if (username == null || username.isEmpty()) {
 			return "No username provided, please type in your username first";
@@ -247,13 +249,13 @@ public class UserController {
 			Connection connect = DriverManager.getConnection(Constants.create().getJdbcConnectionString());
 
 			String sql = "SELECT password_hint FROM users WHERE username = '" + username + "'";
-			logger.info(sql);
+			logger.info(StringEscapeUtils.escapeJava(sql));
 			Statement statement = connect.createStatement();
 			ResultSet result = statement.executeQuery(sql);
 			if (result.first()) {
 				String password= result.getString("password_hint");
 				String formatString = "Username '" + username + "' has password: %.2s%s";
-				logger.info(formatString);
+				logger.info(StringUtils.normalizeSpace(formatString));
 				return String.format(
 						formatString,
 						password,
@@ -383,7 +385,7 @@ public class UserController {
 
 			sqlStatement = connect.createStatement();
 			sqlStatement.execute(query.toString());
-			logger.info(query.toString());
+			logger.info(StringUtils.normalizeSpace(query.toString()));
 			/* END BAD CODE */
 
 			emailUser(username);
@@ -491,7 +493,7 @@ public class UserController {
 			/* START BAD CODE */
 			String sqlMyEvents = "select event from users_history where blabber=\"" + username
 					+ "\" ORDER BY eventid DESC; ";
-			logger.info(sqlMyEvents);
+			logger.info(StringUtils.normalizeSpace(sqlMyEvents));
 			Statement sqlStatement = connect.createStatement();
 			ResultSet userHistoryResult = sqlStatement.executeQuery(sqlMyEvents);
 			/* END BAD CODE */
@@ -502,7 +504,7 @@ public class UserController {
 
 			// Get the users information
 			String sql = "SELECT username, real_name, blab_name FROM users WHERE username = '" + username + "'";
-			logger.info(sql);
+			logger.info(StringEscapeUtils.escapeJava(sql));
 			myInfo = connect.prepareStatement(sql);
 			ResultSet myInfoResults = myInfo.executeQuery();
 			myInfoResults.next();
@@ -656,7 +658,7 @@ public class UserController {
 				String extension = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf("."));
 				String path = imageDir + username + extension;
 
-				logger.info("Saving new profile image: " + path);
+				logger.info("Saving new profile image: " + StringUtils.normalizeSpace(path));
 
 				file.transferTo(new File(path)); // will delete any existing file first
 			}
@@ -692,7 +694,7 @@ public class UserController {
 
 		String path = context.getRealPath("/resources/images") + File.separator + imageName;
 
-		logger.info("Fetching profile image: " + path);
+		logger.info("Fetching profile image: " + StringUtils.normalizeSpace(path));
 
 		InputStream inputStream = null;
 		OutputStream outStream = null;
@@ -706,7 +708,7 @@ public class UserController {
 				// set to binary type if MIME mapping not found
 				mimeType = "application/octet-stream";
 			}
-			logger.info("MIME type: " + mimeType);
+			logger.info("MIME type: " + StringUtils.normalizeSpace(mimeType));
 
 			// Set content attributes for the response
 			response.setContentType(mimeType);
@@ -801,7 +803,7 @@ public class UserController {
 			}
 		}
 
-		logger.info("Username: " + username + " already exists. Try again.");
+		logger.info("Username: " + StringUtils.normalizeSpace(username) + " already exists. Try again.");
 		return true;
 	}
 
@@ -857,7 +859,7 @@ public class UserController {
 			if (oldImage != null) {
 				String extension = oldImage.substring(oldImage.lastIndexOf("."));
 
-				logger.info("Renaming profile image from " + oldImage + " to " + newUsername + extension);
+				logger.info("Renaming profile image from " + StringUtils.normalizeSpace(oldImage) + " to " + newUsername + extension);
 				String path = context.getRealPath("/resources/images") + File.separator;
 
 				File oldName = new File(path + oldImage);
