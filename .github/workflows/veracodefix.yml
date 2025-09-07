@@ -73,7 +73,7 @@ jobs:
           vkey: ${{ secrets.VKEY }}
           cwe: 117
           fixType: 'batch'
-          debug: false
+          debug: true
           prComment: true
           files: 'all'
           codeSuggestion: false
