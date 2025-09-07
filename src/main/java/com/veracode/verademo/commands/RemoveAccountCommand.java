@@ -44,6 +44,8 @@ public class RemoveAccountCommand implements BlabberCommand {
 			String event = "Removed account for blabber " + result.getString(1);
 			sqlQuery = "INSERT INTO users_history (blabber, event) VALUES ('" + blabberUsername + "', '" + event + "')";
 			logger.info(sqlQuery);
+			//new CWE 117
+			logger.info(sqlQuery);
 			sqlStatement.execute(sqlQuery);
 			
 			sqlQuery = "DELETE FROM users WHERE username = '" + blabberUsername + "'";
