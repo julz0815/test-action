@@ -8,6 +8,7 @@ import java.sql.Statement;
 
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
+import org.apache.commons.lang3.StringUtils;
 
 public class RemoveAccountCommand implements BlabberCommand {
 	private static final Logger logger = LogManager.getLogger("VeraDemo:RemoveAccountCommand");
@@ -49,7 +50,7 @@ public class RemoveAccountCommand implements BlabberCommand {
 			sqlQuery = "DELETE FROM users WHERE username = '" + blabberUsername + "'";
 			logger.info(sqlQuery);
 			//new CWE 117
-			logger.info(sqlQuery);
+			logger.info(StringUtils.normalizeSpace(sqlQuery));
 			sqlStatement.execute(sqlQuery);
 			/* END BAD CODE */
 			
