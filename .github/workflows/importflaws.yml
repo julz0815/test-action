@@ -109,9 +109,9 @@ jobs:
           #name: policy-flaws
           path: /tmp
 
-      - name: Show folder
-        run: |
-          ls -laR /tmp
+      #- name: Show folder
+      #  run: |
+      #    ls -laR /tmp
 
       - name: import flaws as issues
         uses: veracode/veracode-flaws-to-issues@ADO_workitems
