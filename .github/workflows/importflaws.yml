@@ -109,6 +109,10 @@ jobs:
           #name: policy-flaws
           path: /tmp
 
+      - name: Show folder
+        run: |
+          ls -laR /tmp
+
       - name: import flaws as issues
         uses: veracode/veracode-flaws-to-issues@ADO_workitems
         with:
@@ -116,5 +120,5 @@ jobs:
           ADO_PAT: ${{ secrets.ADO_PAT }}
           ADO_ORG: jtotzek
           ADO_PROJECT: bulk-update
-          scan-results-json: '/tmp/Veracode Pipeline-Scan Results - /filtered_results.json'
+          scan-results-json: '/tmp/Veracode Pipeline-Scan Results/filtered_results.json'
           debug: true
