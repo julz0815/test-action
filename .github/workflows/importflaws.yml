@@ -114,6 +114,6 @@ jobs:
           dts_type: ADO
           ADO_PAT: ${{ secrets.ADO_PAT }}
           ADO_ORG: jtotzek
-          ADO_PROJECT: Verademo_YML
+          ADO_PROJECT: bulk-update
           scan-results-json: '/tmp/Veracode Pipeline-Scan Results - /filtered_results.json'
           debug: true
