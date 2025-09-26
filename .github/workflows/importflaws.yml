@@ -101,6 +101,7 @@ jobs:
   import-policy-flaws:
     needs: pipeline_scan
     runs-on: ubuntu-latest
+    if: always()
     steps:
       - name: get flaw file
         uses: actions/download-artifact@v4
