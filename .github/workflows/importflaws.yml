@@ -106,7 +106,7 @@ jobs:
       - name: get flaw file
         uses: actions/download-artifact@v4
         with:
-          #name: policy-flaws
+          name: policy-flaws
           path: /tmp
 
       #- name: Show folder
