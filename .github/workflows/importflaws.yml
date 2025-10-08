@@ -64,7 +64,7 @@ jobs:
           export VERACODE_API_KEY_ID=${{ secrets.VID }}
           export VERACODE_API_KEY_SECRET=${{ secrets.VKEY }}
           #guid=$(http --auth-type veracode_hmac GET "https://api.veracode.com/appsec/v1/applications?name=test-action" | jq -r '._embedded.applications[0].guid') 
-          guid=2024-07-05T13:49:44.000Z
+          guid=5c6cda05-fa3c-47a5-8715-a1babc21f8f4
           echo GUID: ${guid}
           total_flaws=$(http --auth-type veracode_hmac GET "https://api.veracode.com/appsec/v2/applications/${guid}/findings?scan_type=STATIC&violates_policy=True" | jq -r '.page.total_elements')
           echo TOTAL_FLAWS: ${total_flaws}
