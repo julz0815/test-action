@@ -121,4 +121,5 @@ jobs:
           ADO_ORG: jtotzek
           ADO_PROJECT: bulk-update
           scan-results-json: '/tmp/policy_flaws.json'
+          autoCloseFindings: true
           debug: true
