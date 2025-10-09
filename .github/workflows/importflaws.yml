@@ -104,6 +104,7 @@ jobs:
     runs-on: ubuntu-latest
     if: always()
     steps:
+      - uses: actions/checkout@v3
       - name: get flaw file
         uses: actions/download-artifact@v4
         with:
