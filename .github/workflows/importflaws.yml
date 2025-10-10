@@ -122,6 +122,6 @@ jobs:
           #ADO_PAT: ${{ secrets.ADO_PAT }}
           #ADO_ORG: jtotzek
           #ADO_PROJECT: bulk-update
-          scan-results-json: 'resultsVH.json'
+          scan-results-json: 'resultsVH-H.json'
           autoCloseFindings: true
           debug: true
