@@ -120,7 +120,11 @@ jobs:
           dts_type: ADO
           ADO_PAT: ${{ secrets.ADO_PAT }}
           ADO_ORG: jtotzek
-          ADO_PROJECT: bulk-update
+          ADO_PROJECT: MeijerTest
+          ADO_WORK_ITEM_TYPE: Bug
+          ADO_OPEN_STATE: New
+          ADO_CLOSE_STATE: Closed
+          ADO_REOPEN_STATE: New
           scan-results-json: '/tmp/policy_flaws.json'
           autoCloseFindings: true
           debug: true
