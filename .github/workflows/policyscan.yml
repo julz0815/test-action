@@ -39,7 +39,7 @@ jobs:
             name: verademo.war
         - name: policye-scan action step
           id: policy-scan
-          uses: veracode/veracode-uploadandscan-action@0.2.10
+          uses: veracode/veracode-uploadandscan-action@rewriteToTs
           #julz0815/Veracode-pipeline-scan-action@beta-0.29
           with:
             appname: julz0815/test-action
