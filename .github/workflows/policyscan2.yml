@@ -7,6 +7,7 @@ jobs:
   policy_scan:
       runs-on: ubuntu-latest
       steps:
+      - uses: actions/checkout@v3
       - name: Veracode Upload and Scan Action Step
         uses: veracode/uploadandscan-action@v0.1.9
         id: upload_and_scan
@@ -15,7 +16,7 @@ jobs:
           createprofile: true
           policy: 'Only VH flaws'
           version: 'new'
-          filepath: 'helloworld-2.0.jar'
+          filepath: helloworld-2.0.jar
           vid: '${{ secrets.VID }}'
           vkey: '${{ secrets.VKEY }}'
           scantimeout: 30
