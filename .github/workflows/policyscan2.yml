@@ -15,7 +15,7 @@ jobs:
           createprofile: true
           policy: 'Only VH flaws'
           version: 'new'
-          filepath: './helloworld-2.0.jar'
+          filepath: 'helloworld-2.0.jar'
           vid: '${{ secrets.VID }}'
           vkey: '${{ secrets.VKEY }}'
           scantimeout: 30
