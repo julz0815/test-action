@@ -23,7 +23,7 @@ jobs:
         uses: veracode/veracode-sca@output
         with:
           create-issues: false
-          debug: false
+          debug: true
       - name: Display scan URL
         run: |
           echo "View detailed report at: ${{ steps.veracode-sca.outputs.scan-url }}"
