@@ -15,14 +15,18 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
+        
       - name: Run Veracode SCA
+        id: veracode-sca
         env:
             SRCCLR_API_TOKEN: ${{ secrets.SRCCLR_API_TOKEN }}
-        uses: veracode/veracode-sca@SDEVX-8321
+        uses: veracode/veracode-sca@output
         with:
           create-issues: false
-#          artifactname: scan1
-          debug: true
+          debug: false
+      - name: Display scan URL
+        run: |
+          echo "View detailed report at: ${{ steps.veracode-sca.outputs.scan-url }}"
 
 
 
