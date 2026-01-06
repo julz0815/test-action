@@ -13,19 +13,7 @@ jobs:
       steps:
         - name: checkout
           uses: actions/checkout@v2
-
-        - name: folders
-          run: |
-            orgFolder=$(pwd)
-            cd ~
-            pwd
-            mkdir .veracode
-            cd .veracode
-            pwd
-            ls -la
-            cp $orgFolder/secrets/veracode.yml ./
           
-
         - name: container-scan action step
           id: container-scan
           uses: veracode/container_iac_secrets_scanning@addPolicySupport
