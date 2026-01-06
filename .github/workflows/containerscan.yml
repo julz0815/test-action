@@ -26,3 +26,4 @@ jobs:
             format: "json"
             debug: true
             fail_build: true
+            policy: "Container/IaC/Secrets"
