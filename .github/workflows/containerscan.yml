@@ -16,7 +16,6 @@ jobs:
 
         - name: folders
           run: |
-            whiami
             orgFolder=$(pwd)
             cd ~
             pwd
