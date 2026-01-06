@@ -29,7 +29,7 @@ jobs:
 
         - name: container-scan action step
           id: container-scan
-          uses: veracode/container_iac_secrets_scanning@addPolicysupport
+          uses: veracode/container_iac_secrets_scanning@addPolicySupport
           with:
             vid: ${{ secrets.VID }}
             vkey: ${{ secrets.VKEY }}
