@@ -52,28 +52,28 @@ jobs:
 
 
 
-  get-policy-flaws:
-    runs-on: ubuntu-latest
-    continue-on-error: true
-    container: 
-      image: veracode/api-signing:latest
-    steps:
-      - name: get policy flaws
-        run: |
-          cd /tmp
-          export VERACODE_API_KEY_ID=${{ secrets.VID }}
-          export VERACODE_API_KEY_SECRET=${{ secrets.VKEY }}
-          guid=$(http --auth-type veracode_hmac GET "https://api.veracode.com/appsec/v1/applications?name=test-app1" | jq -r '._embedded.applications[0].guid') 
-          echo GUID: ${guid}
-          total_flaws=$(http --auth-type veracode_hmac GET "https://api.veracode.com/appsec/v2/applications/${guid}/findings?scan_type=STATIC&violates_policy=True&include_annot=TRUE" | jq -r '.page.total_elements')
-          echo TOTAL_FLAWS: ${total_flaws}
-          http --auth-type veracode_hmac GET "https://api.veracode.com/appsec/v2/applications/${guid}/findings?scan_type=STATIC&violates_policy=True&size=${total_flaws}&include_annot=TRUE" > policy_flaws.json
+#  get-policy-flaws:
+#    runs-on: ubuntu-latest
+#    continue-on-error: true
+#    container: 
+#      image: veracode/api-signing:latest
+#    steps:
+#      - name: get policy flaws
+#        run: |
+#          cd /tmp
+#          export VERACODE_API_KEY_ID=${{ secrets.VID }}
+#          export VERACODE_API_KEY_SECRET=${{ secrets.VKEY }}
+#          guid=$(http --auth-type veracode_hmac GET "https://api.veracode.com/appsec/v1/applications?name=test-app1" | jq -r '._embedded.applications[0].guid') 
+#          echo GUID: ${guid}
+#          total_flaws=$(http --auth-type veracode_hmac GET "https://api.veracode.com/appsec/v2/applications/${guid}/findings?scan_type=STATIC&violates_policy=True&include_annot=TRUE" | jq -r '.page.total_elements')
+#          echo TOTAL_FLAWS: ${total_flaws}
+#          http --auth-type veracode_hmac GET "https://api.veracode.com/appsec/v2/applications/${guid}/findings?scan_type=STATIC&violates_policy=True&size=${total_flaws}&include_annot=TRUE" > policy_flaws.json
 
-      - name: save results file
-        uses: actions/upload-artifact@v4
-        with:
-          name: policy-flaws
-          path: /tmp/policy_flaws.json
+#      - name: save results file
+#        uses: actions/upload-artifact@v4
+#        with:
+#          name: policy-flaws
+#          path: /tmp/policy_flaws.json
       
 
 #  results_to_security_tab:
@@ -99,16 +99,16 @@ jobs:
 #          source_base_path_2: "WEB-INF:src/main/webapp/WEB-INF"
           
   import-policy-flaws:
-    needs: get-policy-flaws
+#    needs: get-policy-flaws
     runs-on: ubuntu-latest
-    if: always()
+#    if: always()
     steps:
-      - uses: actions/checkout@v3
-      - name: get flaw file
-        uses: actions/download-artifact@v4
-        with:
-          name: policy-flaws
-          path: /tmp
+#      - uses: actions/checkout@v3
+#      - name: get flaw file
+#        uses: actions/download-artifact@v4
+#        with:
+#          name: policy-flaws
+#          path: /tmp
 
       #- name: Show folder
       #  run: |
@@ -117,14 +117,17 @@ jobs:
       - name: import flaws as issues
         uses: veracode/veracode-flaws-to-issues@ADO_workitems
         with:
-          dts_type: ADO
-          ADO_PAT: ${{ secrets.ADO_PAT }}
-          ADO_ORG: jtotzek
-          ADO_PROJECT: MeijerTest
-          ADO_WORK_ITEM_TYPE: Bug
-          ADO_OPEN_STATE: New
-          ADO_CLOSE_STATE: Closed
-          ADO_REOPEN_STATE: New
-          scan-results-json: '/tmp/policy_flaws.json'
+#          dts_type: ADO
+#          ADO_PAT: ${{ secrets.ADO_PAT }}
+#          ADO_ORG: jtotzek
+#          ADO_PROJECT: MeijerTest
+#          ADO_WORK_ITEM_TYPE: Bug
+#          ADO_OPEN_STATE: New
+#          ADO_CLOSE_STATE: Closed
+#          ADO_REOPEN_STATE: New
+#          scan-results-json: '/tmp/policy_flaws.json'
+          veracode-api-id: ${{ secrets.VID }}
+          veracode-api-key: ${{ secrets.VKEY }}
+          profile-name: "Verademo"
           autoCloseFindings: true
           debug: true
