@@ -129,6 +129,7 @@ jobs:
           veracode-api-id: ${{ secrets.VID }}
           veracode-api-key: ${{ secrets.VKEY }}
           profile-name: "Verademo"
-          sandbox-name: "Feature123"
+          #sandbox-name: "Feature123"
+          include-sca: true
           autoCloseFindings: true
           debug: true
