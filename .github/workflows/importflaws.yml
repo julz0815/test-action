@@ -132,4 +132,4 @@ jobs:
           #sandbox-name: "Feature123"
           include-sca: true
           autoCloseFindings: true
-          debug: true
+          debug: false
