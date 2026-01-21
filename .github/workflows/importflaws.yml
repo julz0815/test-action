@@ -128,7 +128,7 @@ jobs:
 #          scan-results-json: '/tmp/policy_flaws.json'
           veracode-api-id: ${{ secrets.VID }}
           veracode-api-key: ${{ secrets.VKEY }}
-          profile-name: "Verademo"
+          profile-name: "julian-veracode/python-test-repo"
           #sandbox-name: "Feature123"
           include-sca: true
           autoCloseFindings: true
