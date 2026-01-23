@@ -10,8 +10,8 @@ jobs:
             - name: Submit Veracode DAST Scan
               uses: veracode/veracode-dast-action@resultsToIssues
               with:
-                vid: ${{ secrets.VERACODE_API_ID }}
-                vkey: ${{ secrets.VERACODE_API_KEY }}
+                vid: ${{ secrets.VID }}
+                vkey: ${{ secrets.VKEY }}
                 action_type: load-results
                 profile_name: "Verademo API"
                 token: ${{ secrets.GITHUB_TOKEN }}
