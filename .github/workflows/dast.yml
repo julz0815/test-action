@@ -8,7 +8,7 @@ jobs:
         runs-on: ubuntu-latest
         steps:
             - name: Submit Veracode DAST Scan
-              uses: veracode-australia/veracode-dast-action@resultsToIssues
+              uses: veracode/veracode-dast-action@resultsToIssues
               with:
                 vid: ${{ secrets.VERACODE_API_ID }}
                 vkey: ${{ secrets.VERACODE_API_KEY }}
