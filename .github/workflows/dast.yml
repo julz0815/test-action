@@ -13,5 +13,5 @@ jobs:
                 vid: ${{ secrets.VERACODE_API_ID }}
                 vkey: ${{ secrets.VERACODE_API_KEY }}
                 action_type: load-results
-                profile: "Verademo API"
+                profile_name: "Verademo API"
                 token: ${{ secrets.GITHUB_TOKEN }}
