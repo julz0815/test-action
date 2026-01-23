@@ -117,15 +117,15 @@ jobs:
       - name: import flaws as issues
         uses: veracode/veracode-flaws-to-issues@ADO_workitems
         with:
-#          dts_type: ADO
-#          ADO_PAT: ${{ secrets.ADO_PAT }}
-#          ADO_ORG: jtotzek
-#          ADO_PROJECT: MeijerTest
-#          ADO_WORK_ITEM_TYPE: Bug
-#          ADO_OPEN_STATE: New
-#          ADO_CLOSE_STATE: Closed
-#          ADO_REOPEN_STATE: New
-#          scan-results-json: '/tmp/policy_flaws.json'
+          dts_type: ADO
+          ADO_PAT: ${{ secrets.ADO_PAT }}
+          ADO_ORG: jtotzek
+          ADO_PROJECT: MeijerTest
+          ADO_WORK_ITEM_TYPE: Bug
+          ADO_OPEN_STATE: New
+          ADO_CLOSE_STATE: Closed
+          ADO_REOPEN_STATE: New
+          scan-results-json: '/tmp/policy_flaws.json'
           veracode-api-id: ${{ secrets.VID }}
           veracode-api-key: ${{ secrets.VKEY }}
           profile-name: "julian-veracode/python-test-repo"
