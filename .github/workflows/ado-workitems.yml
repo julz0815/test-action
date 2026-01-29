@@ -1,0 +1,26 @@
+on:
+  workflow_dispatch:
+
+jobs:
+  import-policy-flaws:
+    runs-on: ubuntu-latest
+    steps:
+
+      - name: import flaws as issues
+        uses: julz0815/ado-workitmes-action@Amain
+        with:
+          ado_token: ${{ secrets.ADO_PAT }}
+          ado-org: jtotzek
+          ado-project: MeijerTest
+          work-item-type: Bug
+          area-path: "MeijerTest\\MeijerTest"
+          iteration-path: "MeijerTest\\MeijerTest"
+          #ADO_OPEN_STATE: New
+          #ADO_CLOSE_STATE: Closed
+          #ADO_REOPEN_STATE: New
+          scan-results-json: '/tmp/policy_flaws.json'
+          veracode-api-id: ${{ secrets.VID }}
+          veracode-api-key: ${{ secrets.VKEY }}
+          veracode-app-profile: "julian-veracode/python-test-repo"
+          scan-type: "Static Analysis and SCA"
+          import-type: "All Unmitigated Flaws Violating Policy"
