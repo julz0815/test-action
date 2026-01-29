@@ -20,6 +20,6 @@ jobs:
           repopen-state: New
           veracode-api-id: ${{ secrets.VID }}
           veracode-api-key: ${{ secrets.VKEY }}
-          veracode-app-profile: "julian-veracode/python-test-repo"
+          veracode-app-profile: "test-action"
           scan-type: "Static Analysis and SCA"
           import-type: "All Unmitigated Flaws Violating Policy"
