@@ -7,7 +7,7 @@ jobs:
     steps:
 
       - name: import flaws as issues
-        uses: julz0815/ado-workitems-action@pi_and_close
+        uses: julz0815/ado-workitems-action@api_and_close
         with:
           ado-token: ${{ secrets.ADO_PAT }}
           ado-org: jtotzek
