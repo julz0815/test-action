@@ -9,7 +9,7 @@ jobs:
       - name: import flaws as issues
         uses: julz0815/ado-workitems-action@main
         with:
-          ado_token: ${{ secrets.ADO_PAT }}
+          ado-token: ${{ secrets.ADO_PAT }}
           ado-org: jtotzek
           ado-project: MeijerTest
           work-item-type: Bug
@@ -18,7 +18,6 @@ jobs:
           #ADO_OPEN_STATE: New
           #ADO_CLOSE_STATE: Closed
           #ADO_REOPEN_STATE: New
-          scan-results-json: '/tmp/policy_flaws.json'
           veracode-api-id: ${{ secrets.VID }}
           veracode-api-key: ${{ secrets.VKEY }}
           veracode-app-profile: "julian-veracode/python-test-repo"
