@@ -13,8 +13,8 @@ jobs:
           ado-org: jtotzek
           ado-project: MeijerTest
           work-item-type: Bug
-          area-path: "MeijerTest\\MeijerTest"
-          iteration-path: "MeijerTest\\MeijerTest"
+          area-path: "MeijerTest"
+          iteration-path: "MeijerTest"
           #ADO_OPEN_STATE: New
           #ADO_CLOSE_STATE: Closed
           #ADO_REOPEN_STATE: New
