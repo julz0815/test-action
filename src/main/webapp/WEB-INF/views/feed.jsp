@@ -96,7 +96,7 @@
 									<div class="commentText">
 										<p class=""><%= post.getContent() %></p>
 										<span class="date sub-text">
-											by <%= post.getAuthor().getBlabName() %> on <%= post.getPostDateString() %>
+											by <%= post.getAuthor().getBlabName() %> on <%= post.getPostDateString() %>by <%= ESAPI.encoder().encodeForHTMLAttribute(post.getAuthor().getBlabName()) %> on <%= ESAPI.encoder().encodeForHTMLAttribute(post.getPostDateString()) %>											by <%= post.getAuthor().getBlabName() %> on <%= post.getPostDateString() %>
 										</span>
 										<br/>
 										<span class="date sub-text">
@@ -139,7 +139,7 @@
 							%>
 							<li>
 								<div class="commentText">
-									<p class=""><%= post.getContent() %></p>
+									<p class=""><%= post.getContent() %></p><%= StringEscapeUtils.escapeXml11(post.getContent()) %>									<p class=""><%= post.getContent() %></p>
 									<span class="date sub-text">by you on <%= post.getPostDateString() %></span><br/>
 									<span class="date sub-text">
 										<a href="blab?blabid=<%= post.getId() %>"><%= post.getCommentCount() %> Comments</a>
@@ -170,7 +170,7 @@
 			$.get("morefeed", {
 				count : count,
 				len : 10
-			}, function(data) {
+			}, function(data) {data = StringEscapeUtils.escapeXml11(data)			}, function(data) {
 				if (data) {
 					$("#feed ul").append(data);
 				} else {
