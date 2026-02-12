@@ -32,6 +32,19 @@ jobs:
       runs-on: ubuntu-latest
       name: pipeline scan
       steps:
+        - name: Background timer notifier
+          run: |
+              (
+                i=0
+                while true; do
+                  i=$((i+1))
+                  curl -X POST -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+                    -H "Accept: application/vnd.github.v3+json" \
+                    https://api.github.com/repos/${{ github.repository }}/issues/1/comments \
+                    -d "{\"body\":\"⏱️ Job running for $((i * 1)) minutes...\"}"
+                  sleep 60
+                done
+              ) &
         - name: checkout repo
           uses: actions/checkout@v3
 
@@ -53,43 +66,3 @@ jobs:
             #create_baseline_from: "standard"
             debug: 1
             fail_build: false
-
-#  results_to_sarif:
-#    needs: pipeline_scan
-#    runs-on: ubuntu-latest
-#    name: import pipeline results to sarif
-#    steps:
-#      - name: get flaw file
-#        uses: actions/download-artifact@v2
-#        with:
-#          name: Veracode Pipeline-Scan Results
-#      - name: Convert pipeline scan output to SARIF format
-#        id: convert
-#        uses: Veracode/veracode-pipeline-scan-results-to-sarif@support-saf-scanners
-#        #uses: Veracode/veracode-pipeline-scan-results-to-sarif@v1.0.6
-#        with:
-#          pipeline-results-json: results.json
-#          output-results-sarif: veracode-results.sari
-
-#      - name: upload sarif file to repository
-#        uses: github/codeql-action/upload-sarif@v2
-#        with: # Path to SARIF file relative to the root of the repository
-#          sarif_file: veracode-results.sarif
-            
-# This step will import flaws from the step above
-  import-pipeline-flaws:
-    needs: pipeline_scan
-    runs-on: ubuntu-latest
-    steps:
-      - name: get flaw file
-        uses: actions/download-artifact@v4
-        with:
-          #name: Veracode Pipeline-Scan Results - 
-          path: /tmp
-
-      - name: import flaws as issues
-        uses: veracode/veracode-flaws-to-issues@closeIssues
-        with:
-          scan-results-json: '/tmp/Veracode Pipeline-Scan Results - /filtered_results.json'
-          debug: true
-

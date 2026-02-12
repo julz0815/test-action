@@ -1,0 +1,17 @@
+on:
+  workflow_dispatch:
+
+name: Veracode DAST
+
+jobs:
+    Submit-DAST-Scan:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Submit Veracode DAST Scan
+              uses: veracode/veracode-dast-action@resultsToIssues
+              with:
+                vid: ${{ secrets.VID }}
+                vkey: ${{ secrets.VKEY }}
+                action_type: load-results
+                profile_name: "Verademo API"
+                token: ${{ secrets.GITHUB_TOKEN }}
