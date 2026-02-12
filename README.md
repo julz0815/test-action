@@ -1,11 +1,6 @@
-# Veracode Pipeline Scan CI Tool -- updated -- updated
-
-sdfwertwert
-wqefrwqerqwer
-wqerqwrqwre
-werqwerqwerwqerqwerewqrtwetwer
-rtzerzerzt
-wqerqwerqwerqwer
+w# Veracode Pipeline Scan CI Tool -- updated -- updated
+grhjtrzujtzewrtewrtewrtwerwerretzertzretzertzertzertzfjugfzugsdgsdfgerwtwertqwsrewrsdfg
+ertztziuzgugwerwertkgjgdfhdfghertzrtuzdsgwertwertewrtgwertretzertzdfghdfghasdfgsdfg
 Veracode Pipeline Scan CI tool scans a prebuilt binary file for analysis.
 
 The only pre-requisites are Java 8 and the project being built (`gradle build` or `maven verify`, for example, has been run and the build outputs are available to the tool) before attempting to scan.
@@ -15,7 +10,7 @@ The only pre-requisites are Java 8 and the project being built (`gradle build` o
 The `pipeline-scan` CI tool is designed to be used in a CI/CD pipeline to submit a binary to Veracode for security scanning. It supports scans for Java, JavaScript, Scala, Kotlin, Groovy and Android code.
 
 For more information on Pipeline Scan visit Veracode Help Center Page: https://help.veracode.com/reader/tS9CaFwL4_lbIEWWomsJoA/ovfZGgu96UINQxIuTqRDwg
-
+rtezretzretz
 ## Usage
 
 The latest version will always be available at `https://downloads.veracode.com/securityscan/pipeline-scan-LATEST.zip`. This ZIP file contains this README, and a single JAR (`pipeline-scan.jar`) that contains all dependencies besides the required Java 8+ JVM.
