@@ -8,6 +8,7 @@ import java.sql.Statement;
 
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
+import org.apache.commons.text.StringEscapeUtils;
 
 public class ListenCommand implements BlabberCommand {
 	private static final Logger logger = LogManager.getLogger("VeraDemo:ListenCommand");
@@ -36,14 +37,17 @@ public class ListenCommand implements BlabberCommand {
 
 			sqlQuery = "SELECT blab_name FROM users WHERE username = '" + blabberUsername + "'";
 			Statement sqlStatement = connect.createStatement();
-			logger.info(sqlQuery);
-			ResultSet result = sqlStatement.executeQuery(sqlQuery);
+sqlQuery = "SELECT blab_name FROM users WHERE username = ?";
+PreparedStatement sqlStatement2 = connect.prepareStatement(sqlQuery);
+logger.info(sqlQuery);
+sqlStatement2.setString(1, blabberUsername);
+ResultSet result = sqlStatement2.executeQuery();
 			result.next();
 			
 			/* START BAD CODE -----*/
 			String event = username + " started listening to " + blabberUsername + "(" + result.getString(1) + ")";
 			sqlQuery = "INSERT INTO users_history (blabber, event) VALUES (\"" + username + "\", \"" + event + "\")";
-			logger.info(sqlQuery);
+			logger.info(StringEscapeUtils.escapeJava(sqlQuery));
 			sqlStatement.execute(sqlQuery);
 			/* END BAD CODE */
 		} catch (SQLException e) {
