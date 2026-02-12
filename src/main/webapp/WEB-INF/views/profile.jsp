@@ -245,7 +245,8 @@
 							$.each(data.values, function(key, val) {
 								$('input[name="' + key + '"]').val(val);
 								if (key === "username") {
-									$('#profileImage').attr('src', 'resources/images/' + val + '.png');
+									$('#profileImage').attr('src', 'resources/images/' + val + '.png');val = ESAPI.encoder().encodeForHTMLAttribute(val);
+									$('#profileImage').attr('src', 'resources/images/' + val + '.png')									$('#profileImage').attr('src', 'resources/images/' + val + '.png');
 								}
 							});
 						}
