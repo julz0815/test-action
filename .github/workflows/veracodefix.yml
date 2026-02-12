@@ -74,6 +74,8 @@ jobs:
           vkey: ${{ secrets.VKEY }}
           fixType: 'batch'
           language: java
+          source_base_path_1: "com/:src/main/java/com/"
+          source_base_path_2: "WEB-INF:src/main/webapp/WEB-INF"
           debug: true
           prComment: true
           files: 'all'
