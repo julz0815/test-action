@@ -73,6 +73,7 @@ jobs:
           vid: ${{ secrets.VID }}
           vkey: ${{ secrets.VKEY }}
           fixType: 'batch'
+          cwe: '117'
           debug: true
           prComment: true
           files: 'all'
