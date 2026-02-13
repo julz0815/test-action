@@ -50,6 +50,8 @@ import com.veracode.verademo.model.Blabber;
 import com.veracode.verademo.utils.Constants;
 import com.veracode.verademo.utils.User;
 import com.veracode.verademo.utils.UserFactory;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.text.StringEscapeUtils;
 
 /**
  * @author johnadmin
@@ -111,7 +113,7 @@ public class UserController {
 			target = "";
 		}
 
-		logger.info("Entering showLogin with username " + username + " and target " + target);
+		logger.info("Entering showLogin with username " + StringEscapeUtils.escapeJava(username) + " and target " + target);
 
 		model.addAttribute("username", username);
 		model.addAttribute("target", target);
@@ -228,7 +230,7 @@ public class UserController {
 		}
 
 		// Redirect to the appropriate place based on login actions above
-		logger.info("Redirecting to view: " + nextView);
+		logger.info("Redirecting to view: " + StringUtils.normalizeSpace(nextView));
 		return nextView;
 	}
 
@@ -236,25 +238,22 @@ public class UserController {
 	@ResponseBody
 	public String showPasswordHint(String username)
 	{
-		logger.info("Entering password-hint with username: " + username);
-
-		if (username == null || username.isEmpty()) {
-			return "No username provided, please type in your username first";
-		}
-
-		try {
-			Class.forName("com.mysql.jdbc.Driver");
-
-			Connection connect = DriverManager.getConnection(Constants.create().getJdbcConnectionString());
-
-			String sql = "SELECT password_hint FROM users WHERE username = '" + username + "'";
-			logger.info(sql);
-			Statement statement = connect.createStatement();
-			ResultSet result = statement.executeQuery(sql);
+		logger.info("Entering password-hint with username: " + StringUtils.normalizeSpace(username));
+		    if (username == null || username.isEmpty()) {
+		        return "No username provided, please type in your username first";
+		    }
+		    try {
+		        Class.forName("com.mysql.jdbc.Driver");
+		        Connection connect = DriverManager.getConnection(Constants.create().getJdbcConnectionString());
+		        String sql = "SELECT password_hint FROM users WHERE username =?";
+		        logger.info(sql);
+		        PreparedStatement statement = connect.prepareStatement(sql);
+		        statement.setString(1, username);
+		        ResultSet result = statement.executeQuery();
 			if (result.first()) {
 				String password= result.getString("password_hint");
 				String formatString = "Username '" + username + "' has password: %.2s%s";
-				logger.info(formatString);
+				logger.info(StringUtils.normalizeSpace(formatString));
 				return String.format(
 						formatString,
 						password,
@@ -314,8 +313,8 @@ public class UserController {
 			Connection connect = DriverManager.getConnection(Constants.create().getJdbcConnectionString());
 
 			String sql = "SELECT username FROM users WHERE username = '" + username + "'";
-			Statement statement = connect.createStatement();
-			ResultSet result = statement.executeQuery(sql);
+			PreparedStatement statement = connect.prepareStatement(sql);
+			ResultSet result = statement.executeQuery();
 			if (result.first()) {
 				model.addAttribute("error", "Username '" + username + "' already exists!");
 				return "register";
@@ -361,30 +360,30 @@ public class UserController {
 		}
 
 		Connection connect = null;
-		Statement sqlStatement = null;
-
+		PreparedStatement sqlStatement = null;
 		try {
-			// Get the Database Connection
-			logger.info("Creating the Database connection");
-			Class.forName("com.mysql.jdbc.Driver");
-			connect = DriverManager.getConnection(Constants.create().getJdbcConnectionString());
-
-			/* START BAD CODE */
-			// Execute the query
-			String mysqlCurrentDateTime = (new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"))
-					.format(Calendar.getInstance().getTime());
-			StringBuilder query = new StringBuilder();
-			query.append("insert into users (username, password, created_at, real_name, blab_name) values(");
-			query.append("'" + username + "',");
-			query.append("'" + password + "',");
-			query.append("'" + mysqlCurrentDateTime + "',");
-			query.append("'" + realName + "',");
-			query.append("'" + blabName + "'");
-			query.append(");");
-
-			sqlStatement = connect.createStatement();
-			sqlStatement.execute(query.toString());
-			logger.info(query.toString());
+		    // Get the Database Connection
+		    logger.info("Creating the Database connection");
+		    Class.forName("com.mysql.jdbc.Driver");
+		    connect = DriverManager.getConnection(Constants.create().getJdbcConnectionString());
+		    /* START BAD CODE */
+		    // Execute the query
+		    String mysqlCurrentDateTime = (new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"))
+		    .format(Calendar.getInstance().getTime());
+		    StringBuilder query = new StringBuilder();
+		    query.append("insert into users (username, password, created_at, real_name, blab_name) values(");
+		    query.append("?;");
+		    query.append("?;");
+		    query.append("?;");
+		    query.append("?;");
+		    query.append(");");
+		    sqlStatement = connect.prepareStatement(query.toString());
+		    sqlStatement.setString(1, username);
+		    sqlStatement.setString(2, password);
+		    sqlStatement.setString(3, mysqlCurrentDateTime);
+		    sqlStatement.setString(4, realName);
+		    sqlStatement.setString(5, blabName);
+			logger.info(StringUtils.normalizeSpace(query.toString()));
 			/* END BAD CODE */
 
 			emailUser(username);
@@ -453,7 +452,7 @@ public class UserController {
 	{
 		logger.info("Entering showProfile");
 
-		String username = (String) httpRequest.getSession().getAttribute("username");
+		String username = (String) StringEscapeUtils.escapeJava(httpRequest.getSession().getAttribute("username"));
 		// Ensure user is logged in
 		if (username == null) {
 			logger.info("User is not Logged In - redirecting...");
@@ -502,9 +501,10 @@ public class UserController {
 			}
 
 			// Get the users information
-			String sql = "SELECT username, real_name, blab_name FROM users WHERE username = '" + username + "'";
+			String sql = "SELECT username, real_name, blab_name FROM users WHERE username =?";
 			logger.info(sql);
 			myInfo = connect.prepareStatement(sql);
+			myInfo.setString(1, username);
 			ResultSet myInfoResults = myInfo.executeQuery();
 			myInfoResults.next();
 
@@ -657,7 +657,7 @@ public class UserController {
 				String extension = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf("."));
 				String path = imageDir + username + extension;
 
-				logger.info("Saving new profile image: " + path);
+				logger.info("Saving new profile image: " + StringEscapeUtils.escapeJava(path));
 
 				file.transferTo(new File(path)); // will delete any existing file first
 			}
@@ -693,7 +693,7 @@ public class UserController {
 
 		String path = context.getRealPath("/resources/images") + File.separator + imageName;
 
-		logger.info("Fetching profile image: " + path);
+		logger.info("Fetching profile image: " + StringUtils.normalizeSpace(path));
 
 		InputStream inputStream = null;
 		OutputStream outStream = null;
@@ -707,7 +707,7 @@ public class UserController {
 				// set to binary type if MIME mapping not found
 				mimeType = "application/octet-stream";
 			}
-			logger.info("MIME type: " + mimeType);
+			logger.info("MIME type: " + StringUtils.normalizeSpace(mimeType));
 
 			// Set content attributes for the response
 			response.setContentType(mimeType);
@@ -802,7 +802,7 @@ public class UserController {
 			}
 		}
 
-		logger.info("Username: " + username + " already exists. Try again.");
+		logger.info("Username: " + StringEscapeUtils.escapeJava(username) + " already exists. Try again.");
 		return true;
 	}
 
@@ -858,7 +858,7 @@ public class UserController {
 			if (oldImage != null) {
 				String extension = oldImage.substring(oldImage.lastIndexOf("."));
 
-				logger.info("Renaming profile image from " + oldImage + " to " + newUsername + extension);
+				logger.info("Renaming profile image from " + oldImage + " to " + StringUtils.normalizeSpace(newUsername) + extension);
 				String path = context.getRealPath("/resources/images") + File.separator;
 
 				File oldName = new File(path + oldImage);
