@@ -59,3 +59,6 @@ sqlStatement2.execute();
 	}
 
 }
+
+
+// test commit
