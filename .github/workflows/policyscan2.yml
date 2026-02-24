@@ -1,0 +1,25 @@
+on:
+#  pull_request:
+#    branches: [main]
+  workflow_dispatch:
+  
+jobs:
+  policy_scan:
+      runs-on: ubuntu-latest
+      steps:
+      - uses: actions/checkout@v3
+      - name: Veracode Upload and Scan Action Step
+        uses: veracode/uploadandscan-action@v0.1.9
+        id: upload_and_scan
+        with:
+          appname: 'heeloworld'
+          createprofile: true
+          policy: 'Only VH flaws'
+          version: 'new'
+          filepath: helloworld-2.0.jar
+          vid: '${{ secrets.VID }}'
+          vkey: '${{ secrets.VKEY }}'
+          scantimeout: 30
+          failbuild: true
+          gitRepositoryUrl: 'https://github.com/julz0815/test-action'
+          deleteincompletescan: true

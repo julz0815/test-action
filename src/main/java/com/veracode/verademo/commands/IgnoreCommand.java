@@ -36,15 +36,21 @@ public class IgnoreCommand implements BlabberCommand {
 						
 			sqlQuery = "SELECT blab_name FROM users WHERE username = '" + blabberUsername + "'";
 			Statement sqlStatement = connect.createStatement();
-			logger.info(sqlQuery);
-			ResultSet result = sqlStatement.executeQuery(sqlQuery);
+sqlQuery = "SELECT blab_name FROM users WHERE username = ?";
+PreparedStatement sqlStatement2 = connect.prepareStatement(sqlQuery);
+logger.info(sqlQuery);
+sqlStatement2.setString(1, blabberUsername);
+ResultSet result = sqlStatement2.executeQuery();
 			result.next();
 			
 			/* START BAD CODE */
-			String event = username + " is now ignoring " + blabberUsername + "(" + result.getString(1) + ")";
-			sqlQuery = "INSERT INTO users_history (blabber, event) VALUES (\"" + username + "\", \"" + event + "\")";
-			logger.info(sqlQuery);
-			sqlStatement.execute(sqlQuery);
+String event = username + " is now ignoring " + blabberUsername + "(" + result.getString(1) + ")";
+sqlQuery = "INSERT INTO users_history (blabber, event) VALUES (?, ?)";
+logger.info(sqlQuery);
+PreparedStatement sqlStatement2 = connect.prepareStatement(sqlQuery);
+sqlStatement2.setString(1, username);
+sqlStatement2.setString(2, event);
+sqlStatement2.execute();
 			/* END BAD CODE */
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -53,3 +59,8 @@ public class IgnoreCommand implements BlabberCommand {
 	}
 
 }
+
+
+// test commit
+
+// more tests

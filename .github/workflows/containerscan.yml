@@ -13,10 +13,10 @@ jobs:
       steps:
         - name: checkout
           uses: actions/checkout@v2
-
+          
         - name: container-scan action step
           id: container-scan
-          uses: veracode/container_iac_secrets_scanning@v1.0.1
+          uses: veracode/container_iac_secrets_scanning@addPolicySupport
           with:
             vid: ${{ secrets.VID }}
             vkey: ${{ secrets.VKEY }}
@@ -26,3 +26,4 @@ jobs:
             format: "json"
             debug: true
             fail_build: true
+            policy: "Container/IaC/Secrets"
