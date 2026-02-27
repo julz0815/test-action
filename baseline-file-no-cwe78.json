@@ -1,0 +1,191 @@
+{
+  "_links": {
+    "root": {
+      "href": "/"
+    },
+    "self": {
+      "href": "/scans/020098ec-e31b-4be0-8bf0-fdef3a63b0d7/findings"
+    },
+    "help": {
+      "href": "https://docs.veracode.com/"
+    }
+  },
+  "scan_id": "020098ec-e31b-4be0-8bf0-fdef3a63b0d7",
+  "scan_status": "SUCCESS",
+  "message": "Scan successful. Results size: 430166 bytes",
+  "modules": [
+    "verademo.war",
+    "JS files within verademo.war"
+  ],
+  "modules_count": 2,
+  "findings": [
+    {
+      "title": "java.lang.Runtime.exec",
+      "issue_id": 1195,
+      "image_path": "file:/tmp/tmpbeai8nwb/binary/verademo.veracodegen.vc.war#zip:com/veracode/verademo/controller/ToolsController",
+      "gob": "B",
+      "severity": 5,
+      "issue_type_id": "taint",
+      "issue_type": "Improper Neutralization of Special Elements used in an OS Command (\u0027OS Command Injection\u0027)",
+      "cwe_id": "78",
+      "exploit_level": "0",
+      "display_text": "\u003cspan\u003eThis call to java.lang.Runtime.exec() contains a command injection flaw.  The argument to the function is constructed using untrusted input.  If an attacker is allowed to specify all or part of the command, it may be possible to execute commands on the server with the privileges of the executing process.  The level of exposure depends on the effectiveness of input validation routines, if any. The first argument to exec() contains tainted data. The tainted data originated from an earlier call to AnnotationVirtualController.vc_annotation_entry.\u003c/span\u003e \u003cspan\u003eValidate all untrusted input to ensure that it conforms to the expected format, using centralized data validation routines when possible.  When using blocklists, be sure that the sanitizing routine performs a sufficient number of iterations to remove all instances of disallowed characters.  Most APIs that execute system commands also have a \"safe\" version of the method that takes an array of strings as input rather than a single string, which protects against some forms of command injection.\u003c/span\u003e \u003cspan\u003eReferences: \u003ca href\u003d\"https://cwe.mitre.org/data/definitions/78.html\"\u003eCWE\u003c/a\u003e \u003ca href\u003d\"https://owasp.org/www-community/attacks/Command_Injection\"\u003eOWASP\u003c/a\u003e\u003c/span\u003e",
+      "files": {
+        "source_file": {
+          "file": "com/veracode/verademo/controller/ToolsController.java",
+          "upload_file": "com/veracode/verademo/controller/ToolsController.java",
+          "line": 56,
+          "function_name": "ping",
+          "qualified_function_name": "com.veracode.verademo.controller.ToolsController.ping",
+          "function_prototype": "java.lang.String ping(java.lang.String)",
+          "scope": "com.veracode.verademo.controller.ToolsController"
+        }
+      },
+      "flaw_match": {
+        "procedure_hash": "3149804519",
+        "prototype_hash": "2923252499",
+        "flaw_hash": "3051621651",
+        "flaw_hash_count": 1,
+        "flaw_hash_ordinal": 1,
+        "cause_hash": "221330682",
+        "cause_hash_count": 1,
+        "cause_hash_ordinal": 1,
+        "cause_hash2": "1487712924",
+        "cause_hash2_ordinal": "1"
+      },
+      "stack_dumps": {
+        "stack_dump": [
+          {}
+        ]
+      },
+      "flaw_details_link": "https://downloads.veracode.com/securityscan/cwe/v4/java/78.html"
+    },
+    {
+      "title": "java.lang.Runtime.exec",
+      "issue_id": 1196,
+      "image_path": "file:/tmp/tmpbeai8nwb/binary/verademo.veracodegen.vc.war#zip:com/veracode/verademo/controller/ToolsController",
+      "gob": "B",
+      "severity": 5,
+      "issue_type_id": "taint",
+      "issue_type": "Improper Neutralization of Special Elements used in an OS Command (\u0027OS Command Injection\u0027)",
+      "cwe_id": "78",
+      "exploit_level": "0",
+      "display_text": "\u003cspan\u003eThis call to java.lang.Runtime.exec() contains a command injection flaw.  The argument to the function is constructed using untrusted input.  If an attacker is allowed to specify all or part of the command, it may be possible to execute commands on the server with the privileges of the executing process.  The level of exposure depends on the effectiveness of input validation routines, if any. The first argument to exec() contains tainted data. The tainted data originated from an earlier call to AnnotationVirtualController.vc_annotation_entry.\u003c/span\u003e \u003cspan\u003eValidate all untrusted input to ensure that it conforms to the expected format, using centralized data validation routines when possible.  When using blocklists, be sure that the sanitizing routine performs a sufficient number of iterations to remove all instances of disallowed characters.  Most APIs that execute system commands also have a \"safe\" version of the method that takes an array of strings as input rather than a single string, which protects against some forms of command injection.\u003c/span\u003e \u003cspan\u003eReferences: \u003ca href\u003d\"https://cwe.mitre.org/data/definitions/78.html\"\u003eCWE\u003c/a\u003e \u003ca href\u003d\"https://owasp.org/www-community/attacks/Command_Injection\"\u003eOWASP\u003c/a\u003e\u003c/span\u003e",
+      "files": {
+        "source_file": {
+          "file": "com/veracode/verademo/controller/ToolsController.java",
+          "upload_file": "com/veracode/verademo/controller/ToolsController.java",
+          "line": 59,
+          "function_name": "ping",
+          "qualified_function_name": "com.veracode.verademo.controller.ToolsController.ping",
+          "function_prototype": "java.lang.String ping(java.lang.String)",
+          "scope": "com.veracode.verademo.controller.ToolsController"
+        }
+      },
+      "flaw_match": {
+        "procedure_hash": "3149804519",
+        "prototype_hash": "2923252499",
+        "flaw_hash": "1314945025",
+        "flaw_hash_count": 1,
+        "flaw_hash_ordinal": 1,
+        "cause_hash": "3320331067",
+        "cause_hash_count": 1,
+        "cause_hash_ordinal": 1,
+        "cause_hash2": "1835631409",
+        "cause_hash2_ordinal": "1"
+      },
+      "stack_dumps": {
+        "stack_dump": [
+          {}
+        ]
+      },
+      "flaw_details_link": "https://downloads.veracode.com/securityscan/cwe/v4/java/78.html"
+    },
+    {
+      "title": "java.lang.Runtime.exec",
+      "issue_id": 1193,
+      "image_path": "file:/tmp/tmpbeai8nwb/binary/verademo.veracodegen.vc.war#zip:com/veracode/verademo/controller/ToolsController",
+      "gob": "B",
+      "severity": 5,
+      "issue_type_id": "taint",
+      "issue_type": "Improper Neutralization of Special Elements used in an OS Command (\u0027OS Command Injection\u0027)",
+      "cwe_id": "78",
+      "exploit_level": "0",
+      "display_text": "\u003cspan\u003eThis call to java.lang.Runtime.exec() contains a command injection flaw.  The argument to the function is constructed using untrusted input.  If an attacker is allowed to specify all or part of the command, it may be possible to execute commands on the server with the privileges of the executing process.  The level of exposure depends on the effectiveness of input validation routines, if any. The first argument to exec() contains tainted data from the variables (new String\\[...\\]). The tainted data originated from an earlier call to AnnotationVirtualController.vc_annotation_entry.\u003c/span\u003e \u003cspan\u003eValidate all untrusted input to ensure that it conforms to the expected format, using centralized data validation routines when possible.  When using blocklists, be sure that the sanitizing routine performs a sufficient number of iterations to remove all instances of disallowed characters.  Most APIs that execute system commands also have a \"safe\" version of the method that takes an array of strings as input rather than a single string, which protects against some forms of command injection.\u003c/span\u003e \u003cspan\u003eReferences: \u003ca href\u003d\"https://cwe.mitre.org/data/definitions/78.html\"\u003eCWE\u003c/a\u003e \u003ca href\u003d\"https://owasp.org/www-community/attacks/Command_Injection\"\u003eOWASP\u003c/a\u003e\u003c/span\u003e",
+      "files": {
+        "source_file": {
+          "file": "com/veracode/verademo/controller/ToolsController.java",
+          "upload_file": "com/veracode/verademo/controller/ToolsController.java",
+          "line": 91,
+          "function_name": "fortune",
+          "qualified_function_name": "com.veracode.verademo.controller.ToolsController.fortune",
+          "function_prototype": "java.lang.String fortune(java.lang.String)",
+          "scope": "com.veracode.verademo.controller.ToolsController"
+        }
+      },
+      "flaw_match": {
+        "procedure_hash": "2161030689",
+        "prototype_hash": "3827778930",
+        "flaw_hash": "3753823106",
+        "flaw_hash_count": 1,
+        "flaw_hash_ordinal": 1,
+        "cause_hash": "4165693487",
+        "cause_hash_count": 1,
+        "cause_hash_ordinal": 1,
+        "cause_hash2": "3322588175",
+        "cause_hash2_ordinal": "1"
+      },
+      "stack_dumps": {
+        "stack_dump": [
+          {}
+        ]
+      },
+      "flaw_details_link": "https://downloads.veracode.com/securityscan/cwe/v4/java/78.html"
+    },
+    {
+      "title": "java.lang.Runtime.exec",
+      "issue_id": 1194,
+      "image_path": "file:/tmp/tmpbeai8nwb/binary/verademo.veracodegen.vc.war#zip:com/veracode/verademo/controller/ToolsController",
+      "gob": "B",
+      "severity": 5,
+      "issue_type_id": "taint",
+      "issue_type": "Improper Neutralization of Special Elements used in an OS Command (\u0027OS Command Injection\u0027)",
+      "cwe_id": "78",
+      "exploit_level": "0",
+      "display_text": "\u003cspan\u003eThis call to java.lang.Runtime.exec() contains a command injection flaw.  The argument to the function is constructed using untrusted input.  If an attacker is allowed to specify all or part of the command, it may be possible to execute commands on the server with the privileges of the executing process.  The level of exposure depends on the effectiveness of input validation routines, if any. The first argument to exec() contains tainted data from the variable cmd. The tainted data originated from an earlier call to AnnotationVirtualController.vc_annotation_entry.\u003c/span\u003e \u003cspan\u003eValidate all untrusted input to ensure that it conforms to the expected format, using centralized data validation routines when possible.  When using blocklists, be sure that the sanitizing routine performs a sufficient number of iterations to remove all instances of disallowed characters.  Most APIs that execute system commands also have a \"safe\" version of the method that takes an array of strings as input rather than a single string, which protects against some forms of command injection.\u003c/span\u003e \u003cspan\u003eReferences: \u003ca href\u003d\"https://cwe.mitre.org/data/definitions/78.html\"\u003eCWE\u003c/a\u003e \u003ca href\u003d\"https://owasp.org/www-community/attacks/Command_Injection\"\u003eOWASP\u003c/a\u003e\u003c/span\u003e",
+      "files": {
+        "source_file": {
+          "file": "com/veracode/verademo/controller/ToolsController.java",
+          "upload_file": "com/veracode/verademo/controller/ToolsController.java",
+          "line": 94,
+          "function_name": "fortune",
+          "qualified_function_name": "com.veracode.verademo.controller.ToolsController.fortune",
+          "function_prototype": "java.lang.String fortune(java.lang.String)",
+          "scope": "com.veracode.verademo.controller.ToolsController"
+        }
+      },
+      "flaw_match": {
+        "procedure_hash": "2161030689",
+        "prototype_hash": "3827778930",
+        "flaw_hash": "3707028537",
+        "flaw_hash_count": 1,
+        "flaw_hash_ordinal": 1,
+        "cause_hash": "2620704574",
+        "cause_hash_count": 1,
+        "cause_hash_ordinal": 1,
+        "cause_hash2": "1522093433",
+        "cause_hash2_ordinal": "5"
+      },
+      "stack_dumps": {
+        "stack_dump": [
+          {}
+        ]
+      },
+      "flaw_details_link": "https://downloads.veracode.com/securityscan/cwe/v4/java/78.html"
+    }
+  ],
+  "selected_modules": [],
+  "engine_version": "20260219223424",
+  "pipeline_scan": "26.2.1-0",
+  "dev_stage": "DEVELOPMENT"
+}
