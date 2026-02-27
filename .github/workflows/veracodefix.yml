@@ -67,7 +67,7 @@ jobs:
           
       - name: Create fixes from static findings
         id: convert
-        uses: Veracode/veracode-fix@removeAxios
+        uses: Veracode/veracode-fix@workflowApp
         with:
           inputFile: results.json
           vid: ${{ secrets.VID }}
