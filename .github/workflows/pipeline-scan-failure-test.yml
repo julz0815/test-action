@@ -56,3 +56,4 @@ jobs:
           json_output: true
           json_output_file: results.json
           filtered_json_output_file: filtered_results.json
+          baseline_file: baseline-file-no-cwe78.json
