@@ -11,7 +11,7 @@ jobs:
         with:
           ado-token: ${{ secrets.ADO_PAT }}
           ado-org: jtotzek
-          ado-project: MeijerTest
+          ado-project: workitem-test
           work-item-type: Bug
           area-path: "workitem-test"
           iteration-path: "workitem-test"
