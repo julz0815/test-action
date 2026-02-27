@@ -50,4 +50,9 @@ jobs:
         with:
           vid: ${{ secrets.VID }}
           vkey: ${{ secrets.VKEY }}
-          file: "verademo.war" 
+          file: "verademo.war"
+          summary_output: true
+          summary_output_file: results.txt
+          json_output: true
+          json_output_file: results.json
+          filtered_json_output_file: filtered_results.json
