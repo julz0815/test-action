@@ -15,9 +15,9 @@ jobs:
           work-item-type: Bug
           area-path: "MeijerTest"
           iteration-path: "MeijerTest"
-          open-state: New
-          close-state: Closed
-          repopen-state: New
+          open-state: Active
+          close-state: Resolved
+          repopen-state: Active
           veracode-api-id: ${{ secrets.VID }}
           veracode-api-key: ${{ secrets.VKEY }}
           veracode-app-profile: "test-action"
