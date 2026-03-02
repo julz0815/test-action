@@ -17,7 +17,7 @@ jobs:
           iteration-path: "MeijerTest"
           open-state: Active
           close-state: Resolved
-          repopen-state: Active
+          reopen-state: Active
           veracode-api-id: ${{ secrets.VID }}
           veracode-api-key: ${{ secrets.VKEY }}
           veracode-app-profile: "test-action"
