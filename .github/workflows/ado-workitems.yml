@@ -14,7 +14,7 @@ jobs:
           ado-project: MeijerTest
           work-item-type: Bug
           area-path: 'MeijerTest'
-          overwrite-area-path false: false
+          overwrite-area-path: false
           iteration-path: 'MeijerTest'
           overwrite-iteration-path: false
           open-state: New
