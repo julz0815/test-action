@@ -17,9 +17,9 @@ jobs:
           overwrite-area-path false: false
           iteration-path: 'MeijerTest'
           overwrite-iteration-path: false
-          open-state: Active
-          close-state: Resolved
-          reopen-state: Active
+          open-state: New
+          close-state: Closed
+          reopen-state: New
           veracode-api-id: ${{ secrets.VID }}
           veracode-api-key: ${{ secrets.VKEY }}
           veracode-app-profile: "test-action"
